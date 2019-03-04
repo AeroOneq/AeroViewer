@@ -1,0 +1,268 @@
+﻿<Page x:Class="AeroViewer.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AeroViewer"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainPage">
+    <Page.Resources>
+        <Style x:Key="propertyValueTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Arial, Verdana"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Foreground" Value="{StaticResource defaultTextColot}"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontWeight" Value="ExtraLight"/>
+        </Style>
+        <Style x:Key="outterBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="BorderBrush" Value="{StaticResource backgroundBrush}"/>
+        </Style>
+        <Style x:Key="propertyNameTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Arial, Verdana"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="{StaticResource hintColorText}"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+        </Style>
+        <Style x:Key="devisionRectanleStyle" TargetType="Rectangle">
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Height" Value="1"/>
+            <Setter Property="Fill" Value="{StaticResource hintColorText}"/>
+        </Style>
+
+        <Style x:Key="mainPageBtnStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontFamily" Value="Arial, Verdana"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="Foreground" Value="{StaticResource buttonTextColor}"/>
+            <Setter Property="Background" Value="{StaticResource darkMainThemeColor}"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5"
+                                BorderBrush="{StaticResource darkMainThemeColor}"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="True"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Left"
+                                              VerticalAlignment="Top"
+                                              Height="30"
+                                              Width="110"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <EventSetter Event="MouseEnter" Handler="MenuButtonMouseEnter"/>
+            <EventSetter Event="MouseLeave" Handler="MenuButtonMouseLeave"/>
+        </Style>
+        <Style x:Key="deleteBtnStyle" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontFamily" Value="Arial, Verdana"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="110"/>
+            <Setter Property="Foreground" Value="{StaticResource buttonTextColor}"/>
+            <Setter Property="Background" Value="{StaticResource dangerousActionsColor}"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="5"
+                                BorderBrush="{StaticResource dangerousActionsColor}"
+                                BorderThickness="1"
+                                SnapsToDevicePixels="True"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Left"
+                                              VerticalAlignment="Top"
+                                              Height="30"
+                                              Width="110"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <EventSetter Event="MouseEnter" Handler="DeleteButtonMouseEnter"/>
+            <EventSetter Event="MouseLeave" Handler="DeleteButtonMouseLeave"/>
+        </Style>
+
+        <Style x:Key="dataGridStyle" TargetType="DataGrid">
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Height" Value="500"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="RowBackground" Value="White"/>
+            <Setter Property="AlternatingRowBackground" Value="PaleGreen"/>
+            <Setter Property="IsReadOnly" Value="False"/>
+            <Setter Property="ColumnWidth" Value="200"/>
+            <Setter Property="GridLinesVisibility" Value="None"/>
+
+            <Setter Property="MinRowHeight" Value="60"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
+
+            <Setter Property="CanUserDeleteRows" Value="True"/>
+            <Setter Property="CanUserResizeColumns" Value="False"/>
+            <Setter Property="CanUserSortColumns" Value="True"/>
+            <Setter Property="CanUserReorderColumns" Value="True"/>
+            <Setter Property="CanUserResizeColumns" Value="True"/>
+        </Style>
+        <Style x:Key="dataGridHeaderStyle" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource darkMainThemeColor}"/>
+            <Setter Property="FontFamily" Value="Arial, Verdana"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0, 0, 0.5, 0"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="IsEnabled" Value="True"/>
+        </Style>
+        <Style x:Key="dataGridCellStyle" TargetType="DataGridCell">
+            <Setter Property="FontFamily" Value="Arial, Verdana"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                        <Border x:Name="border"
+                                BorderBrush="LightGray"
+                                BorderThickness="0, 0, 0.5, 0"
+                                Background="Transparent"
+                                SnapsToDevicePixels="True">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border"
+                                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                            To="#dcfbda" 
+                                                            SpeedRatio="100"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="border"
+                                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                            To="Transparent" 
+                                                            SpeedRatio="100"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Unfocused" />
+                                    <VisualState x:Name="Focused" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CurrentStates">
+                                    <VisualState x:Name="Regular" />
+                                    <VisualState x:Name="Current"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid x:Name="backgroundGrid">
+        <Border x:Name="outterBorder"
+                Style="{StaticResource outterBorderStyle}">
+            <Grid>
+                <Grid x:Name="topOptionsGrid">
+                    <TextBlock Text="Название документа"
+                           Margin="20, 20, 0, 0"
+                           Style="{StaticResource propertyNameTextBlockStyle}"/>
+                    <TextBlock Style="{StaticResource propertyValueTextBlockStyle}"
+                           Margin="20, 35, 0, 0"
+                           Text="Документ 1"/>
+
+                    <Button x:Name="addNewRecordBtn"
+                        Style="{StaticResource mainPageBtnStyle}"
+                        Margin="20, 70, 0, 0">
+                        <Button.Content>
+                            <Grid>
+                                <Image VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Height="23"
+                                   Width="23"
+                                   Margin="10, 0, 0, 1"
+                                   Source="Resources/addRecordIcon.png"/>
+                                <TextBlock VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Margin="15, 0, 0, 0"
+                                       Text="Добавить"/>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                    <Button x:Name="saveChangesBtn"
+                        Style="{StaticResource mainPageBtnStyle}"
+                        Margin="140, 70, 0, 0">
+                        <Button.Content>
+                            <Grid>
+                                <Image VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Height="23"
+                                   Width="23"
+                                   Margin="7, 0, 0, 2"
+                                   Source="Resources/saveChangesIcon.png"/>
+                                <TextBlock VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Margin="20, 0, 0, 0"
+                                       Text="Сохранить"/>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                    <Button x:Name="deleteRecordBtn"
+                        Style="{StaticResource deleteBtnStyle}"
+                        Margin="260, 70, 0, 0">
+                        <Button.Content>
+                            <Grid>
+                                <Image VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Height="23"
+                                   Width="23"
+                                   Margin="15, 0, 0, 2"
+                                   Source="Resources/deleteRecordsIcon.png"/>
+                                <TextBlock VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Margin="18, 0, 0, 0"
+                                       Text="Удалить"/>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                    <Rectangle x:Name="topDevisionRectangle"
+                           Style="{StaticResource devisionRectanleStyle}"
+                           Margin="20, 110, 0, 0"/>
+                </Grid>
+
+                <Grid x:Name="dataBackgroundGrid"
+                      Margin="20, 120, 20, 0">
+                    <DataGrid x:Name="csvDataGrid"
+                              Style="{StaticResource dataGridStyle}"
+                              ColumnHeaderStyle="{StaticResource dataGridHeaderStyle}"
+                              CellStyle="{StaticResource dataGridCellStyle}">
+
+                    </DataGrid>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
