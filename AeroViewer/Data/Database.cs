@@ -37,31 +37,13 @@ namespace AeroViewer.Data
         {
             return await Task.Run(() =>
             {
-                try
-                {
-                    List<TunnelExit> tunnelExitsList = new List<TunnelExit>();
-                    string[] tunnelExitsStringData = File.ReadAllLines(FilePath, Encoding.UTF8);
+                List<TunnelExit> tunnelExitsList = new List<TunnelExit>();
+                string[] tunnelExitsStringData = File.ReadAllLines(FilePath, Encoding.UTF8);
 
-                    for (int i = 1; i < tunnelExitsStringData.Length; i++)
-                        tunnelExitsList.Add(CreateTunnelExitObject(tunnelExitsStringData[i]));
+                for (int i = 1; i < tunnelExitsStringData.Length; i++)
+                    tunnelExitsList.Add(CreateTunnelExitObject(tunnelExitsStringData[i]));
 
-                    return tunnelExitsList;
-                }
-                catch (OutOfMemoryException ex)
-                {
-#warning Handle exception
-                    return new List<TunnelExit>();
-                }
-                catch (StackOverflowException ex)
-                {
-#warning Handle exception
-                    return new List<TunnelExit>();
-                }
-                catch (Exception ex)
-                {
-#warning Handle exception
-                    return new List<TunnelExit>();
-                }
+                return tunnelExitsList;
             });
         }
         private TunnelExit CreateTunnelExitObject(string tunnelExitString)
@@ -114,7 +96,7 @@ namespace AeroViewer.Data
                 }
 
                 string[] csvData = data.Select(x => string.Join(";", x)).ToArray();
-                File.WriteAllLines(FilePath, csvData);
+                File.WriteAllLines(FilePath, csvData, Encoding.UTF8);
             });
         }
     }

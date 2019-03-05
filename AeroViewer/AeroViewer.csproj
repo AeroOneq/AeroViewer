@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AeroViewerMessageBox.xaml.cs">
+      <DependentUpon>AeroViewerMessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Attributes\CustomProperty.cs" />
     <Compile Include="Data\Database.cs" />
     <Compile Include="Attributes\HeaderNameAttribute.cs" />
@@ -66,6 +69,10 @@
     <Compile Include="Services\CSVService.cs" />
     <Compile Include="ViewModels\MainPageModel.cs" />
     <Compile Include="ViewModels\TunnelExitModel.cs" />
+    <Page Include="AeroViewerMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LeftMenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -162,6 +169,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\failIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\alertIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

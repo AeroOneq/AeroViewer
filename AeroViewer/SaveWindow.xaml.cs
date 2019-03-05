@@ -30,6 +30,7 @@ namespace AeroViewer
         private List<TunnelExit> TunnelExits { get; set; }
         #endregion
 
+        #region Constrcutors
         public SaveWindow() { }
         public SaveWindow(ObservableCollection<TunnelExitModel> tunnelExitModels,
             string filePath)
@@ -39,6 +40,8 @@ namespace AeroViewer
             filePathTextBox.Text = filePath;
             TunnelExits = CreateTunnelExitsList(tunnelExitModels);
         }
+        #endregion
+
         private List<TunnelExit> CreateTunnelExitsList(
             ObservableCollection<TunnelExitModel> tunnelExitModels)
         {

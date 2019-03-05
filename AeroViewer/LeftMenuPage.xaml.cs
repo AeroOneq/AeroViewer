@@ -80,7 +80,6 @@ namespace AeroViewer
         {
             try
             {
-
                 Process.SetInitialStatus("Открытие файла");
                 CSVService.UpdateFilePath(filePathTextBox.Text);
                 CSVService csvService = CSVService.GetService();
@@ -97,6 +96,8 @@ namespace AeroViewer
             catch (Exception ex)
             {
                 Process.SetFinalStatus("Файл не загружен", false);
+                AeroViewerMessageBox.ShowMessageBox("Ошибка при загрузке файла",
+                    ex.Message, MessageBoxButton.OK);
             }
             finally
             {
