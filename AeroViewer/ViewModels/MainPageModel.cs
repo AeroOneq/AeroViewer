@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using AeroViewer.Models;
+using System.Reflection;
 
 namespace AeroViewer.ViewModels
 {
@@ -12,18 +13,26 @@ namespace AeroViewer.ViewModels
     public class MainPageModel
     {
         #region Properties
-        public ObservableCollection<TunnelExit> TunnelsData { get; set; }
+        public ObservableCollection<TunnelExitModel> TunnelsData { get; set; }
         public static UploadDelegate UploadDelegate { get; set; }
         #endregion
 
         #region Constructors
         private MainPageModel() =>
-            TunnelsData = new ObservableCollection<TunnelExit>();
+            TunnelsData = new ObservableCollection<TunnelExitModel>();
         #endregion
 
         public void CreateNewTunnelData(List<TunnelExit> tunnelExitsList)
         {
-            TunnelsData = new ObservableCollection<TunnelExit>(tunnelExitsList);
+            TunnelsData = new ObservableCollection<TunnelExitModel>();
+
+            foreach (TunnelExit tunnelExit in tunnelExitsList)
+                TunnelsData.Add(new TunnelExitModel(tunnelExit));
+        }
+        public string[][] GetStringArray()
+        {
+
+            return new string[TunnelsData.Count][];
         }
 
         #region Singleton

@@ -13,20 +13,21 @@ namespace AeroViewer.Models
         private const string ValuePropertyName = "\"\"value\"\":";
         #endregion
 
-        public string GlobalID { get; set; } 
+        public string GlobalID { get; set; }
         public string Name { get; set; }
 
         public static Tunnel Parse(string tunnelData)
         {
-            int globalIDStartIndex = tunnelData.IndexOf(GlobalIDPropertyName) + 
+            int globalIDStartIndex = tunnelData.IndexOf(GlobalIDPropertyName) +
                 GlobalIDPropertyName.Length;
-            int valueStartIndex = tunnelData.IndexOf(ValuePropertyName) + 
+            int valueStartIndex = tunnelData.IndexOf(ValuePropertyName) +
                 ValuePropertyName.Length;
 
             string globalID = tunnelData.Substring(globalIDStartIndex,
                 tunnelData.IndexOf(",") - globalIDStartIndex);
             string value = tunnelData.Substring(valueStartIndex,
                 tunnelData.IndexOf("}") - valueStartIndex);
+            value = value.Substring(3, value.Length - 6);
 
             return new Tunnel
             {
@@ -36,6 +37,6 @@ namespace AeroViewer.Models
         }
 
         public override string ToString() =>
-             $"Global ID: {GlobalID}\nName: {Name}";
+            "\"{ \"\"global_id\"\": " + GlobalID + ", \"\"value\"\": \"\"" + Name + "\"\" }\"";
     }
 }

@@ -4,6 +4,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AeroViewer.Models;
 using System.IO;
+using System.Reflection;
+using AeroViewer.Attributes;
+using System.Linq;
 
 namespace AeroViewer.Data
 {
@@ -21,10 +24,11 @@ namespace AeroViewer.Data
         #endregion
 
         #region Properties
-        private string FilePath { get; set; }
+        public string FilePath { get; } = string.Empty;
         #endregion
 
         #region Constructors
+        public Database() { }
         public Database(string filePath) =>
             FilePath = filePath;
         #endregion
@@ -76,8 +80,7 @@ namespace AeroViewer.Data
                     District = tunnelExitStringData[DistrictIndex],
                     Latitude = tunnelExitStringData[LatitudeIndex],
                     Longitude = tunnelExitStringData[LongitudeIndex],
-                    IsDamaged = "OK",
-                    IsSelected = false
+                    IsDamaged = "OK"
                 };
                 return tunnelExit;
             }
@@ -86,11 +89,33 @@ namespace AeroViewer.Data
                 tunnelExit.IsDamaged = "Damaged";
                 return tunnelExit;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 tunnelExit.IsDamaged = "Damaged";
                 return tunnelExit;
             }
+        }
+
+        public async Task WriteFileDataAsync(List<TunnelExit> tunnelExits)
+        {
+            await Task.Run(() =>
+            {
+                string[][] data = new string[tunnelExits.Count][];
+                PropertyInfo[] modelProperties = typeof(TunnelExit).GetProperties(
+                    BindingFlags.Public | BindingFlags.Instance);
+
+                for (int i = 0; i < tunnelExits.Count; i++)
+                {
+                    List<string> dataString = new List<string>();
+                    foreach (PropertyInfo propertyInfo in modelProperties)
+                        if (propertyInfo.GetCustomAttribute<CustomPropertyAttribute>() == null)
+                            dataString.Add(propertyInfo.GetValue(tunnelExits[i]).ToString());
+                    data[i] = dataString.ToArray();
+                }
+
+                string[] csvData = data.Select(x => string.Join(";", x)).ToArray();
+                File.WriteAllLines(FilePath, csvData);
+            });
         }
     }
 }

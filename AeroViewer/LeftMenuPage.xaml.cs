@@ -28,10 +28,19 @@ namespace AeroViewer
         {
             InitializeComponent();
 
-            Process.StatusTextBox = statusTextBlock;
-            Process.Dispatcher = Dispatcher;
+            SetProcessParams();
+
             ParentFrame = parentFrame;
             parentFrame.SizeChanged += RepositionPageElements;
+        }
+
+        private void SetProcessParams()
+        {
+            Process.StatusTextBox = statusTextBlock;
+            Process.Dispatcher = Dispatcher;
+            Process.Loader = loader;
+            Process.SuccessIcon = processSuccessImage;
+            Process.FailIcon = processFailIcon;
         }
 
         private void RepositionPageElements(object sender, SizeChangedEventArgs e)
@@ -71,19 +80,27 @@ namespace AeroViewer
         {
             try
             {
-                loader.Visibility = Visibility.Visible;
-                Process.UpdateStatus("Открытие файла");
-                CSVService csvService = new CSVService(filePathTextBox.Text);
+
+                Process.SetInitialStatus("Открытие файла");
+                CSVService.UpdateFilePath(filePathTextBox.Text);
+                CSVService csvService = CSVService.GetService();
+
                 Process.UpdateStatus("Чтение данных");
                 var tunnelsList = await csvService.Read();
+
                 Process.UpdateStatus("Отображение данных");
                 await Task.Run(() => MainPageModel.GetModel().CreateNewTunnelData(tunnelsList));
+
                 await MainPageModel.UploadDelegate();
-                loader.Visibility = Visibility.Collapsed;
+                Process.SetFinalStatus("Файл загружен", true);
+            }
+            catch (Exception ex)
+            {
+                Process.SetFinalStatus("Файл не загружен", false);
             }
             finally
             {
-
+#warning Handle exceptions
             }
         }
     }

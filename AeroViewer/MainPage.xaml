@@ -224,7 +224,7 @@
                     <Button x:Name="saveChangesBtn"
                         Style="{StaticResource mainPageBtnStyle}"
                         Margin="140, 70, 0, 0"
-                            Click="SaveChanges">
+                            Click="SaveChangesAsync">
                         <Button.Content>
                             <Grid>
                                 <Image VerticalAlignment="Center"
@@ -241,8 +241,9 @@
                         </Button.Content>
                     </Button>
                     <Button x:Name="deleteRecordBtn"
-                        Style="{StaticResource deleteBtnStyle}"
-                        Margin="260, 70, 0, 0">
+                            Style="{StaticResource deleteBtnStyle}"
+                            Margin="260, 70, 0, 0"
+                            Click="DeleteRecordsAsync">
                         <Button.Content>
                             <Grid>
                                 <Image VerticalAlignment="Center"
