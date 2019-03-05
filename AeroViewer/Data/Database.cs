@@ -17,6 +17,7 @@ namespace AeroViewer.Data
         private int AdmAreaIndex { get; } = 3;
         private int TunnelIndex { get; } = 2;
         private int NameIndex { get; } = 1;
+        private int RowNumIndex { get; } = 0;
         #endregion
 
         #region Properties
@@ -37,24 +38,24 @@ namespace AeroViewer.Data
                     List<TunnelExit> tunnelExitsList = new List<TunnelExit>();
                     string[] tunnelExitsStringData = File.ReadAllLines(FilePath, Encoding.UTF8);
 
-                    foreach (string tunnelExitString in tunnelExitsStringData)
-                        tunnelExitsList.Add(CreateTunnelExitObject(tunnelExitString));
+                    for (int i = 1; i < tunnelExitsStringData.Length; i++)
+                        tunnelExitsList.Add(CreateTunnelExitObject(tunnelExitsStringData[i]));
 
                     return tunnelExitsList;
                 }
                 catch (OutOfMemoryException ex)
                 {
-                    #warning Handle exception
+#warning Handle exception
                     return new List<TunnelExit>();
                 }
                 catch (StackOverflowException ex)
                 {
-                    #warning Handle exception
+#warning Handle exception
                     return new List<TunnelExit>();
                 }
                 catch (Exception ex)
                 {
-                    #warning Handle exception
+#warning Handle exception
                     return new List<TunnelExit>();
                 }
             });
@@ -68,23 +69,26 @@ namespace AeroViewer.Data
                 tunnelExit = new TunnelExit
                 {
                     ID = tunnelExitStringData[IDIndex],
+                    RowNum = int.Parse(tunnelExitStringData[RowNumIndex]),
                     Name = tunnelExitStringData[NameIndex],
                     Tunnel = Tunnel.Parse(tunnelExitStringData[TunnelIndex]),
                     AdmArea = tunnelExitStringData[AdmAreaIndex],
                     District = tunnelExitStringData[DistrictIndex],
                     Latitude = tunnelExitStringData[LatitudeIndex],
-                    Longitude = tunnelExitStringData[LongitudeIndex]
+                    Longitude = tunnelExitStringData[LongitudeIndex],
+                    IsDamaged = "OK",
+                    IsSelected = false
                 };
                 return tunnelExit;
             }
             catch (ArgumentNullException)
             {
-                tunnelExit.IsDamaged = true;
+                tunnelExit.IsDamaged = "Damaged";
                 return tunnelExit;
             }
             catch (Exception)
             {
-                tunnelExit.IsDamaged = true;
+                tunnelExit.IsDamaged = "Damaged";
                 return tunnelExit;
             }
         }

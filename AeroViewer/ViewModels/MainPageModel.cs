@@ -12,21 +12,18 @@ namespace AeroViewer.ViewModels
     public class MainPageModel
     {
         #region Properties
-        public ObservableCollection<TunnelExitModel> TunnelsData { get; set; }
+        public ObservableCollection<TunnelExit> TunnelsData { get; set; }
         public static UploadDelegate UploadDelegate { get; set; }
         #endregion
 
         #region Constructors
         private MainPageModel() =>
-            TunnelsData = new ObservableCollection<TunnelExitModel>();
+            TunnelsData = new ObservableCollection<TunnelExit>();
         #endregion
 
         public void CreateNewTunnelData(List<TunnelExit> tunnelExitsList)
         {
-            TunnelsData = new ObservableCollection<TunnelExitModel>();
-
-            for (int i = 1; i < tunnelExitsList.Count; i++)
-                TunnelsData.Add(new TunnelExitModel(tunnelExitsList[i]));
+            TunnelsData = new ObservableCollection<TunnelExit>(tunnelExitsList);
         }
 
         #region Singleton

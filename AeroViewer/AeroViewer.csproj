@@ -56,11 +56,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Database.cs" />
+    <Compile Include="Attributes\HeaderNameAttribute.cs" />
     <Compile Include="Interfaces\IFileService.cs" />
     <Compile Include="Process.cs" />
     <Compile Include="Services\CSVService.cs" />
     <Compile Include="ViewModels\MainPageModel.cs" />
-    <Compile Include="ViewModels\TunnelExitModel.cs" />
     <Page Include="LeftMenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
