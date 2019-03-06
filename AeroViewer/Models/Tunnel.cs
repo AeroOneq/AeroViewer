@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AeroViewer.ViewModels;
 
 namespace AeroViewer.Models
 {
@@ -13,8 +14,8 @@ namespace AeroViewer.Models
         private const string ValuePropertyName = "\"\"value\"\":";
         #endregion
 
-        public string GlobalID { get; set; }
-        public string Name { get; set; }
+        public string GlobalID { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         public static Tunnel Parse(string tunnelData)
         {

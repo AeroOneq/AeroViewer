@@ -25,17 +25,18 @@ namespace AeroViewer.Services
         public static CSVService GetService() =>
             CSVServiceObject;
         public static void UpdateFilePath(string filePath) =>
-            CSVServiceObject = new CSVService(filePath);
+            CSVServiceObject.Database.FilePath = filePath;
         #endregion
 
         #region Constructors
-        private CSVService() { }
-        private CSVService(string filePath) =>
-            Database = new Database(filePath);
+        public CSVService() { }
         #endregion
 
-        public async Task<List<TunnelExit>> Read() =>
-            await Database.ReadFileDataAsync();
+        public async Task<List<TunnelExit>> Read()
+        {
+
+            return await Database.ReadFileDataAsync();
+        }
 
         public async Task Write(List<TunnelExit> tunnelExits) =>
             await Database.WriteFileDataAsync(tunnelExits);

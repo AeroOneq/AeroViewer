@@ -96,12 +96,8 @@ namespace AeroViewer
             catch (Exception ex)
             {
                 Process.SetFinalStatus("Файл не загружен", false);
-                AeroViewerMessageBox.ShowMessageBox("Ошибка при загрузке файла",
-                    ex.Message, MessageBoxButton.OK);
-            }
-            finally
-            {
-#warning Handle exceptions
+                ExceptionHandler.GetHandler().HandleExceptionWithMessageBox(ex,
+                    "Ошибка при загрузке файла");
             }
         }
     }

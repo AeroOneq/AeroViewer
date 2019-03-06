@@ -13,13 +13,13 @@ namespace AeroViewer.Models
         #region Properties
         public int RowNum { get; set; }
 
-        public string Name { get; set; }
-        public Tunnel Tunnel { get; set; }
-        public string AdmArea { get; set; }
-        public string District { get; set; }
-        public string Longitude { get; set; }
-        public string Latitude { get; set; }
-        public string ID { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public Tunnel Tunnel { get; set; } = new Tunnel();
+        public string AdmArea { get; set; } = string.Empty;
+        public string District { get; set; } = string.Empty;
+        public string Longitude { get; set; } = string.Empty;
+        public string Latitude { get; set; } = string.Empty;
+        public string ID { get; set; } = string.Empty;
 
         [CustomProperty]
         public string IsDamaged { get; set; }
@@ -31,7 +31,11 @@ namespace AeroViewer.Models
             RowNum = tunnelExitModel.RowNum;
             ID = tunnelExitModel.ID;
             Name = tunnelExitModel.Name;
-            Tunnel = tunnelExitModel.Tunnel;
+            Tunnel = new Tunnel
+            {
+                GlobalID = tunnelExitModel.TunnelGlobalID,
+                Name = tunnelExitModel.TunnelDescription
+            };
             AdmArea = tunnelExitModel.AdmArea;
             District = tunnelExitModel.District;
             Longitude = tunnelExitModel.Longitude;

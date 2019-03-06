@@ -61,6 +61,7 @@
     <Compile Include="Attributes\CustomProperty.cs" />
     <Compile Include="Data\Database.cs" />
     <Compile Include="Attributes\HeaderNameAttribute.cs" />
+    <Compile Include="ExceptionHandler.cs" />
     <Compile Include="Interfaces\IFileService.cs" />
     <Compile Include="Process.cs" />
     <Compile Include="SaveWindow.xaml.cs">
@@ -138,7 +139,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\appLogoIcon.png" />

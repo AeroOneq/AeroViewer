@@ -24,13 +24,12 @@ namespace AeroViewer.Data
         #endregion
 
         #region Properties
-        public string FilePath { get; } = string.Empty;
+        public string FilePath { get; set; } = string.Empty;
+        public string[] FirstLine { get; private set; } = new string[1];
         #endregion
 
         #region Constructors
         public Database() { }
-        public Database(string filePath) =>
-            FilePath = filePath;
         #endregion
 
         public async Task<List<TunnelExit>> ReadFileDataAsync()
@@ -39,6 +38,8 @@ namespace AeroViewer.Data
             {
                 List<TunnelExit> tunnelExitsList = new List<TunnelExit>();
                 string[] tunnelExitsStringData = File.ReadAllLines(FilePath, Encoding.UTF8);
+
+                FirstLine = tunnelExitsStringData[0].Split(';');
 
                 for (int i = 1; i < tunnelExitsStringData.Length; i++)
                     tunnelExitsList.Add(CreateTunnelExitObject(tunnelExitsStringData[i]));
@@ -71,7 +72,7 @@ namespace AeroViewer.Data
                 tunnelExit.IsDamaged = "Damaged";
                 return tunnelExit;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 tunnelExit.IsDamaged = "Damaged";
                 return tunnelExit;
@@ -82,16 +83,17 @@ namespace AeroViewer.Data
         {
             await Task.Run(() =>
             {
-                string[][] data = new string[tunnelExits.Count][];
+                string[][] data = new string[tunnelExits.Count + 1][];
                 PropertyInfo[] modelProperties = typeof(TunnelExit).GetProperties(
                     BindingFlags.Public | BindingFlags.Instance);
 
-                for (int i = 0; i < tunnelExits.Count; i++)
+                data[0] = FirstLine;
+                for (int i = 1; i < tunnelExits.Count + 1; i++)
                 {
                     List<string> dataString = new List<string>();
                     foreach (PropertyInfo propertyInfo in modelProperties)
                         if (propertyInfo.GetCustomAttribute<CustomPropertyAttribute>() == null)
-                            dataString.Add(propertyInfo.GetValue(tunnelExits[i]).ToString());
+                            dataString.Add(propertyInfo.GetValue(tunnelExits[i - 1]).ToString());
                     data[i] = dataString.ToArray();
                 }
 

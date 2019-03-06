@@ -90,15 +90,18 @@ namespace AeroViewer
             }
             catch (UnauthorizedAccessException ex)
             {
-#warning Handle exception
+                ExceptionHandler.GetHandler().HandleExceptionWithMessageBox(
+                    ex, "Ошибка при сохранении файла");
             }
             catch (IOException ex)
             {
-#warning Handle exception
+                ExceptionHandler.GetHandler().HandleExceptionWithMessageBox(
+                    ex, "Ошибка при сохранении файла");
             }
             catch (Exception ex)
             {
-#warning Handle exception
+                ExceptionHandler.GetHandler().HandleExceptionWithMessageBox(
+                    ex, "Ошибка при сохранении файла");
             }
         }
         #endregion
