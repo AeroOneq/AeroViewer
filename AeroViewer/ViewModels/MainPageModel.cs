@@ -12,8 +12,12 @@ namespace AeroViewer.ViewModels
     public delegate Task UploadDelegate();
     public class MainPageModel
     {
-        #region Properties
+        #region View Model Properties
+        public string DocumentName { get; set; } = "Название документа";
         public ObservableCollection<TunnelExitModel> TunnelsData { get; set; }
+        #endregion
+
+        #region Usual properties
         public static UploadDelegate UploadDelegate { get; set; }
         #endregion
 

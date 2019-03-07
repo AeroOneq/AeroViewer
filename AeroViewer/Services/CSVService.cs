@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using AeroViewer.Attributes;
 using System.IO;
-
+using AeroViewer.ViewModels;
 
 namespace AeroViewer.Services
 {
@@ -34,6 +34,9 @@ namespace AeroViewer.Services
 
         public async Task<List<TunnelExit>> Read()
         {
+            string filePath = Database.FilePath;
+            MainPageModel.GetModel().DocumentName = filePath.Substring(
+                filePath.LastIndexOf("\\") + 1);
 
             return await Database.ReadFileDataAsync();
         }

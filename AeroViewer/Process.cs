@@ -15,10 +15,13 @@ namespace AeroViewer
 
         public static void SetInitialStatus(string initialStatus)
         {
-            StatusTextBox.Text = initialStatus;
-            Loader.Visibility = System.Windows.Visibility.Visible;
-            SuccessIcon.Visibility = System.Windows.Visibility.Collapsed;
-            FailIcon.Visibility = System.Windows.Visibility.Collapsed;
+            Dispatcher.Invoke(() =>
+            {
+                StatusTextBox.Text = initialStatus;
+                Loader.Visibility = System.Windows.Visibility.Visible;
+                SuccessIcon.Visibility = System.Windows.Visibility.Collapsed;
+                FailIcon.Visibility = System.Windows.Visibility.Collapsed;
+            });
         }
 
         public static void UpdateStatus(string newStatus) =>
@@ -26,17 +29,20 @@ namespace AeroViewer
 
         public static void SetFinalStatus(string finalStatus, bool isSuccess)
         {
-            StatusTextBox.Text = finalStatus;
-            Loader.Visibility = System.Windows.Visibility.Collapsed;
-
-            if (isSuccess)
+            Dispatcher.Invoke(() =>
             {
-                SuccessIcon.Visibility = System.Windows.Visibility.Visible;
-                FailIcon.Visibility = System.Windows.Visibility.Collapsed;
-                return;
-            }
-            SuccessIcon.Visibility = System.Windows.Visibility.Collapsed;
-            FailIcon.Visibility = System.Windows.Visibility.Visible;
+                StatusTextBox.Text = finalStatus;
+                Loader.Visibility = System.Windows.Visibility.Collapsed;
+
+                if (isSuccess)
+                {
+                    SuccessIcon.Visibility = System.Windows.Visibility.Visible;
+                    FailIcon.Visibility = System.Windows.Visibility.Collapsed;
+                    return;
+                }
+                SuccessIcon.Visibility = System.Windows.Visibility.Collapsed;
+                FailIcon.Visibility = System.Windows.Visibility.Visible;
+            });
         }
     }
 }

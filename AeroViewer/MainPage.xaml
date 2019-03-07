@@ -5,12 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AeroViewer"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
       Title="MainPage">
     <Page.Resources>
         <Style x:Key="propertyValueTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Arial, Verdana"/>
-            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontSize" Value="18"/>
             <Setter Property="Foreground" Value="{StaticResource defaultTextColot}"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -111,7 +112,7 @@
             <Setter Property="Height" Value="500"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="RowBackground" Value="White"/>
-            <Setter Property="AlternatingRowBackground" Value="PaleGreen"/>
+            <Setter Property="AlternatingRowBackground" Value="#d6ffd3"/>
             <Setter Property="IsReadOnly" Value="False"/>
             <Setter Property="GridLinesVisibility" Value="None"/>
             <Setter Property="HeadersVisibility" Value="Column"/>
@@ -189,6 +190,48 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="filterTextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Arial, Verdana"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Width" Value="140"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="0, 8, 0, 0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border BorderThickness="1.5, 1.5, 1.5, 1.5" 
+                                BorderBrush="{StaticResource darkMainThemeColor}"
+                                CornerRadius="5"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer Name="PART_ContentHost" 
+                                          Background="White"
+                                          Width="130"
+                                          Height="30"   
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="filterComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="BorderBrush" Value="{StaticResource darkMainThemeColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="FontFamily" Value="Arial, Verdana"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="3, 5, 0, 0"/>
+            <Setter Property="SelectedIndex" Value="0"/>
+        </Style>
     </Page.Resources>
 
     <Grid x:Name="backgroundGrid">
@@ -196,16 +239,17 @@
                 Style="{StaticResource outterBorderStyle}">
             <Grid>
                 <Grid x:Name="topOptionsGrid">
-                    <TextBlock Text="Название документа"
-                           Margin="20, 20, 0, 0"
-                           Style="{StaticResource propertyNameTextBlockStyle}"/>
+                    <TextBlock Margin="20, 20, 0, 0"
+                               Text="Имя файла:"
+                               Style="{StaticResource propertyNameTextBlockStyle}"/>
                     <TextBlock Style="{StaticResource propertyValueTextBlockStyle}"
-                           Margin="20, 35, 0, 0"
-                           Text="Документ 1"/>
+                               Margin="20, 35, 0, 0"
+                               Text="{Binding DocumentName}"/>
 
                     <Button x:Name="addNewRecordBtn"
-                        Style="{StaticResource mainPageBtnStyle}"
-                        Margin="20, 70, 0, 0">
+                            Style="{StaticResource mainPageBtnStyle}"
+                            Margin="20, 70, 0, 0"
+                            Click="AddNewRecord">
                         <Button.Content>
                             <Grid>
                                 <Image VerticalAlignment="Center"
@@ -259,6 +303,17 @@
                             </Grid>
                         </Button.Content>
                     </Button>
+                    <TextBox x:Name="filterTextBox"
+                             Style="{StaticResource filterTextBoxStyle}" 
+                             Margin="380, 70, 0, 0"
+                             TextChanged="FindAllRecords"/>
+                    <ComboBox x:Name="filterComboBox"
+                              Margin="380, 40, 0, 0"
+                              Style="{StaticResource filterComboBoxStyle}">
+                        <TextBlock>Все</TextBlock>
+                        <TextBlock>Округ</TextBlock>
+                        <TextBlock>Район</TextBlock>
+                    </ComboBox>
                     <Rectangle x:Name="topDevisionRectangle"
                                Style="{StaticResource devisionRectanleStyle}"
                                Margin="20, 110, 0, 0"/>
@@ -267,6 +322,7 @@
                 <Grid x:Name="dataBackgroundGrid"
                       Margin="20, 120, 20, 0">
                     <DataGrid x:Name="csvDataGrid"
+                              ItemsSource="{Binding TunnelsData}"
                               Style="{StaticResource dataGridStyle}"
                               ColumnHeaderStyle="{StaticResource dataGridHeaderStyle}"
                               CellStyle="{StaticResource dataGridCellStyle}">
