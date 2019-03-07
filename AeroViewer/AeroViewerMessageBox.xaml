@@ -86,14 +86,14 @@
                   HorizontalAlignment="Center"
                   Width="400"
                   Height="44"
-                  Background="#E1E1E1"
+                  Background="#E9E9E9"
                   Margin="0,130,0,0">
                 <StackPanel x:Name="buttonsGrid"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
                             Height="44"
                             Orientation="Horizontal"
-                            Background="#E1E1E1"/>
+                            Background="#E9E9E9"/>
             </Grid>
         </Grid>
     </Window.Content>

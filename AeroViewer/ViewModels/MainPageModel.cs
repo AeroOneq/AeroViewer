@@ -28,15 +28,10 @@ namespace AeroViewer.ViewModels
 
         public void CreateNewTunnelData(List<TunnelExit> tunnelExitsList)
         {
-            TunnelsData = new ObservableCollection<TunnelExitModel>();
+            GetModel().TunnelsData = new ObservableCollection<TunnelExitModel>();
 
             foreach (TunnelExit tunnelExit in tunnelExitsList)
                 TunnelsData.Add(new TunnelExitModel(tunnelExit));
-        }
-        public string[][] GetStringArray()
-        {
-
-            return new string[TunnelsData.Count][];
         }
 
         #region Singleton

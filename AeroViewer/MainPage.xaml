@@ -242,7 +242,8 @@
                     <TextBlock Margin="20, 20, 0, 0"
                                Text="Имя файла:"
                                Style="{StaticResource propertyNameTextBlockStyle}"/>
-                    <TextBlock Style="{StaticResource propertyValueTextBlockStyle}"
+                    <TextBlock x:Name="fileNameTextBlock"
+                               Style="{StaticResource propertyValueTextBlockStyle}"
                                Margin="20, 35, 0, 0"
                                Text="{Binding DocumentName}"/>
 
@@ -308,11 +309,11 @@
                              Margin="380, 70, 0, 0"
                              TextChanged="FindAllRecords"/>
                     <ComboBox x:Name="filterComboBox"
-                              Margin="380, 40, 0, 0"
+                              Margin="530, 72, 0, 0"
                               Style="{StaticResource filterComboBoxStyle}">
                         <TextBlock>Все</TextBlock>
                         <TextBlock>Округ</TextBlock>
-                        <TextBlock>Район</TextBlock>
+                        <TextBlock>Global ID</TextBlock>
                     </ComboBox>
                     <Rectangle x:Name="topDevisionRectangle"
                                Style="{StaticResource devisionRectanleStyle}"
