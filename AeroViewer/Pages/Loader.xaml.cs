@@ -16,9 +16,6 @@ using System.Windows.Media.Animation;
 
 namespace AeroViewer
 {
-    /// <summary>
-    /// Логика взаимодействия для Loader.xaml
-    /// </summary>
     public partial class Loader : UserControl
     {
         public Loader()

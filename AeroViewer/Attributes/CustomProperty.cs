@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AeroViewer.Attributes
 {
+    /// <summary>
+    /// Attribute which marks properties in a class, which represents CSV data, 
+    /// which are added by a programmer (so they are not in a file)
+    /// </summary>
     public class CustomPropertyAttribute : Attribute
     {
     }

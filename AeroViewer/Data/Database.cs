@@ -10,6 +10,9 @@ using System.Linq;
 
 namespace AeroViewer.Data
 {
+    /// <summary>
+    /// Class where all methods which directly connect to the CSV file are placed
+    /// </summary>
     public class Database
     {
         #region CSV File constants
@@ -25,6 +28,9 @@ namespace AeroViewer.Data
 
         #region Properties
         public string FilePath { get; set; } = string.Empty;
+        /// <summary>
+        /// First (Head) line of a file, where column names are
+        /// </summary>
         public string[] FirstLine { get; private set; } = new string[1];
         #endregion
 
@@ -41,12 +47,16 @@ namespace AeroViewer.Data
 
                 FirstLine = tunnelExitsStringData[0].Split(';');
 
-                for (int i = 1; i < tunnelExitsStringData.Length; i++)
+                for (int i = 0; i < tunnelExitsStringData.Length; i++)
                     tunnelExitsList.Add(CreateTunnelExitObject(tunnelExitsStringData[i]));
 
                 return tunnelExitsList;
             });
         }
+
+        /// <summary>
+        /// Creates a TunnelExit object out of a CSV file string
+        /// </summary>
         private TunnelExit CreateTunnelExitObject(string tunnelExitString)
         {
             TunnelExit tunnelExit = new TunnelExit();
@@ -79,26 +89,59 @@ namespace AeroViewer.Data
             }
         }
 
-        public async Task WriteFileDataAsync(List<TunnelExit> tunnelExits)
+        public async Task RewriteDataAsync(List<TunnelExit> tunnelExits)
         {
             await Task.Run(() =>
             {
-                string[][] data = new string[tunnelExits.Count + 1][];
-                PropertyInfo[] modelProperties = typeof(TunnelExit).GetProperties(
-                    BindingFlags.Public | BindingFlags.Instance);
-
-                data[0] = FirstLine;
-                for (int i = 1; i < tunnelExits.Count + 1; i++)
-                {
-                    List<string> dataString = new List<string>();
-                    foreach (PropertyInfo propertyInfo in modelProperties)
-                        if (propertyInfo.GetCustomAttribute<CustomPropertyAttribute>() == null)
-                            dataString.Add(propertyInfo.GetValue(tunnelExits[i - 1]).ToString());
-                    data[i] = dataString.ToArray();
-                }
+                string[][] data = GetStringData(tunnelExits, true);
 
                 string[] csvData = data.Select(x => string.Join(";", x)).ToArray();
                 File.WriteAllLines(FilePath, csvData, Encoding.UTF8);
+            });
+        }
+
+        /// <summary>
+        /// Creates a jagged array out of a Tunnel exit list, where each array is data for CSV data string
+        /// </summary>
+        private string[][] GetStringData(List<TunnelExit> tunnelExits, bool? addHeaderString)
+        {
+            string[][] data;
+            int startIndex = 0;
+
+            if (addHeaderString == true)
+            {
+                data = new string[tunnelExits.Count + 1][];
+                data[0] = FirstLine;
+                startIndex = 1;
+            }
+            else
+            {
+                data = new string[tunnelExits.Count][];
+                startIndex = 0;
+            }
+
+            PropertyInfo[] modelProperties = typeof(TunnelExit).GetProperties(
+                BindingFlags.Public | BindingFlags.Instance);
+
+            for (int i = startIndex; i < data.GetLength(0); i++)
+            {
+                List<string> dataString = new List<string>();
+                foreach (PropertyInfo propertyInfo in modelProperties)
+                    if (propertyInfo.GetCustomAttribute<CustomPropertyAttribute>() == null)
+                        dataString.Add(propertyInfo.GetValue(tunnelExits[i - startIndex]).ToString());
+                data[i] = dataString.ToArray();
+            }
+            return data;
+        }
+        
+        public async Task AppendDataAsync(List<TunnelExit> tunnelExits, bool? addHeaderString)
+        {
+            await Task.Run(() =>
+            {
+                string[][] data = GetStringData(tunnelExits, addHeaderString);
+
+                string[] csvData = data.Select(x => string.Join(";", x)).ToArray();
+                File.AppendAllLines(FilePath, csvData, Encoding.UTF8);
             });
         }
     }

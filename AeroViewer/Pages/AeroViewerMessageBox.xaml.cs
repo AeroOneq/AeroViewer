@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace AeroViewer
 {
@@ -36,6 +27,9 @@ namespace AeroViewer
         }
 
         #region Add buttons methods
+        /// <summary>
+        /// Adds the buttons which were defined by the developer to the messagebox
+        /// </summary>
         public void AddMessageBoxButtons(MessageBoxButton buttons)
         {
             switch (buttons)
@@ -63,6 +57,7 @@ namespace AeroViewer
                     break;
             }
         }
+
         private void AddMessageBoxButton(string text, MessageBoxResult messageBoxResult,
             bool isCancel = false, bool isDefault = false)
         {
@@ -80,6 +75,7 @@ namespace AeroViewer
             buttonsGrid.Children.Add(button);
         }
         #endregion
+
         #region Event handlers
         private void MessageBoxBtnMouseEnter(object sender, MouseEventArgs e)
         {
@@ -87,6 +83,7 @@ namespace AeroViewer
             button.Background = new SolidColorBrush(Color.FromRgb(34, 139, 34));
             button.Foreground = new SolidColorBrush(Colors.White);
         }
+
         private void MessageBoxBtnMouseLeave(object sender, MouseEventArgs e)
         {
             Button button = sender as Button;

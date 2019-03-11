@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AeroViewer
 {
@@ -23,11 +13,15 @@ namespace AeroViewer
         #endregion
 
         #region Singleton
-        public static Position MainWindowPosition { get; private set; }
-        public static void CreateObject(MainWindow mainWindow)
+        private static Position mainWindowPosition;
+        public static Position MainWindowPosition
         {
-            if (MainWindowPosition == null)
-                MainWindowPosition = new Position(mainWindow);
+            get
+            {
+                if (mainWindowPosition == null)
+                    mainWindowPosition = new Position();
+                return mainWindowPosition;
+            }
         }
         public static void UpdateMainWindow(MainWindow mainWindow) =>
             MainWindowPosition.MainWindow = mainWindow;
@@ -44,7 +38,6 @@ namespace AeroViewer
                 SetMaximaziedParams();
             }
         }
-
         private void SetMaximaziedParams()
         {
             MainWindow.Width = SystemParameters.MaximizedPrimaryScreenWidth;
@@ -55,7 +48,7 @@ namespace AeroViewer
         #endregion
 
         #region Constructors
-        private Position(MainWindow mainWindow) => MainWindow = mainWindow;
+        private Position() { }
         #endregion
 
         #region Size changed methods

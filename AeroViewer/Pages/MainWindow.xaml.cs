@@ -25,8 +25,8 @@ namespace AeroViewer
         {
             InitializeComponent();
 
-            Position.CreateObject(this);
             Position = Position.MainWindowPosition;
+            Position.UpdateMainWindow(this);
             
             menuFrame.Content = new LeftMenuPage(menuFrame);
             mainFrame.Content = new MainPage(mainFrame);

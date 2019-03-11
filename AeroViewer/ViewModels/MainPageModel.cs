@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using AeroViewer.Models;
-using System.Reflection;
 
 namespace AeroViewer.ViewModels
 {
@@ -18,7 +14,12 @@ namespace AeroViewer.ViewModels
         #endregion
 
         #region Usual properties
+        /// <summary>
+        /// Delegate which runs after creating a list of TunnelExitModels,
+        /// basicly the function of this delegate is to upload the data to the UI
+        /// </summary>
         public static UploadDelegate UploadDelegate { get; set; }
+        public int NumberOfDamagedRecords { get; set; } = 0;
         #endregion
 
         #region Constructors
@@ -26,21 +27,34 @@ namespace AeroViewer.ViewModels
             TunnelsData = new ObservableCollection<TunnelExitModel>();
         #endregion
 
+        /// <summary>
+        /// Creates a list of TunnelExitModel objets based on the TunnelExit list
+        /// </summary>
+        /// <returns>The number of damaged records</returns>
         public void CreateNewTunnelData(List<TunnelExit> tunnelExitsList)
         {
-            GetModel().TunnelsData = new ObservableCollection<TunnelExitModel>();
+            PageModel.TunnelsData = new ObservableCollection<TunnelExitModel>();
+            NumberOfDamagedRecords = 0;
 
             foreach (TunnelExit tunnelExit in tunnelExitsList)
-                TunnelsData.Add(new TunnelExitModel(tunnelExit));
+            {
+                if (tunnelExit.IsDamaged == "OK")
+                    TunnelsData.Add(new TunnelExitModel(tunnelExit));
+                else
+                    NumberOfDamagedRecords++;
+            }
         }
 
         #region Singleton
-        private static MainPageModel PageModel { get; set; }
-        public static MainPageModel GetModel()
+        private static MainPageModel mainPageModel;
+        public static MainPageModel PageModel
         {
-            if (PageModel == null)
-                PageModel = new MainPageModel();
-            return PageModel;
+            get
+            {
+                if (mainPageModel == null)
+                    mainPageModel = new MainPageModel();
+                return mainPageModel;
+            }
         }
         #endregion
     }

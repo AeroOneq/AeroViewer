@@ -7,16 +7,28 @@ using System.Windows.Threading;
 
 namespace AeroViewer
 {
+    /// <summary>
+    /// Class which handles all the exceptions which can occur during runtime
+    /// </summary>
     public class ExceptionHandler
     {
         public Dispatcher Dispatcher { get; private set; }
 
         #region Singleton
-        private static ExceptionHandler Handler { get; set; } = new ExceptionHandler();
+        private static ExceptionHandler exceptionHandler;
+
+        public static ExceptionHandler Handler
+        {
+            get
+            {
+                if (exceptionHandler == null)
+                    exceptionHandler = new ExceptionHandler();
+                return exceptionHandler;
+            }
+        }
+
         public static void UpdateDispatcher(Dispatcher dispatcher) =>
             Handler.Dispatcher = dispatcher;
-        public static ExceptionHandler GetHandler() =>
-            Handler;
         #endregion
 
         #region Constructors

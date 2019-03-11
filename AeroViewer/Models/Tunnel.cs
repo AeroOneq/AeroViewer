@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AeroViewer.ViewModels;
-
-namespace AeroViewer.Models
+﻿namespace AeroViewer.Models
 {
     public class Tunnel
     {
@@ -14,9 +7,23 @@ namespace AeroViewer.Models
         private const string ValuePropertyName = "\"\"value\"\":";
         #endregion
 
+        #region Properties
         public string GlobalID { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
+        #endregion
 
+        #region Constructors
+        public Tunnel() { }
+        public Tunnel(string globalID, string name)
+        {
+            GlobalID = globalID;
+            Name = name;
+        }
+        #endregion
+
+        /// <summary>
+        /// Creates a tunnel object from a string from CSV file
+        /// </summary>
         public static Tunnel Parse(string tunnelData)
         {
             int globalIDStartIndex = tunnelData.IndexOf(GlobalIDPropertyName) +
@@ -37,6 +44,9 @@ namespace AeroViewer.Models
             };
         }
 
+        /// <summary>
+        /// Returns the data representation in a format which is defined in a CSV file
+        /// </summary>
         public override string ToString() =>
             "\"{ \"\"global_id\"\": " + GlobalID + ", \"\"value\"\": \"\"" + Name + "\"\" }\"";
     }

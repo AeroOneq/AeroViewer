@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AeroViewer.Attributes;
+﻿using AeroViewer.Attributes;
 using AeroViewer.ViewModels;
 
 namespace AeroViewer.Models
@@ -14,7 +9,7 @@ namespace AeroViewer.Models
         public int RowNum { get; set; }
 
         public string Name { get; set; } = string.Empty;
-        public Tunnel Tunnel { get; set; } = new Tunnel();
+        public Tunnel Tunnel { get; set; } 
         public string AdmArea { get; set; } = string.Empty;
         public string District { get; set; } = string.Empty;
         public string Longitude { get; set; } = string.Empty;
@@ -31,13 +26,9 @@ namespace AeroViewer.Models
             RowNum = tunnelExitModel.RowNum;
             ID = tunnelExitModel.ID;
             Name = tunnelExitModel.Name;
-            Tunnel = new Tunnel
-            {
-                GlobalID = tunnelExitModel.TunnelGlobalID,
-                Name = tunnelExitModel.TunnelDescription
-            };
             AdmArea = tunnelExitModel.AdmArea;
             District = tunnelExitModel.District;
+            Tunnel = new Tunnel(tunnelExitModel.TunnelGlobalID, tunnelExitModel.Name);
             Longitude = tunnelExitModel.Longitude;
             Latitude = tunnelExitModel.Latitude;
         }

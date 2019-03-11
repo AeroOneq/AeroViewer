@@ -22,8 +22,8 @@ namespace AeroViewer
     public partial class LeftMenuPage : Page
     {
         public Frame ParentFrame { get; }
-        private IFileService<TunnelExit> CSVFileService { get; set; }
 
+        public LeftMenuPage() { InitializeComponent(); }
         public LeftMenuPage(Frame parentFrame)
         {
             InitializeComponent();
@@ -34,6 +34,10 @@ namespace AeroViewer
             parentFrame.SizeChanged += RepositionPageElements;
         }
 
+        /// <summary>
+        /// Initializes the Process class properties,
+        /// which then used to show the stage of each process
+        /// </summary>
         private void SetProcessParams()
         {
             Process.StatusTextBox = statusTextBlock;
@@ -43,15 +47,19 @@ namespace AeroViewer
             Process.FailIcon = processFailIcon;
         }
 
+        /// <summary>
+        /// Changes the size of some elements when the size of the window is changed
+        /// </summary>
         private void RepositionPageElements(object sender, SizeChangedEventArgs e)
         {
-            this.Width = ParentFrame.Width;
-            this.Height = ParentFrame.Height;
+            Width = ParentFrame.Width;
+            Height = ParentFrame.Height;
 
             outterBorder.Width = Width;
             outterBorder.Height = Height;
         }
 
+        #region Event handlers
         private void FilePathTextBoxGotFocus(object sender, RoutedEventArgs e)
         {
             (sender as TextBox).Style = Resources["menuTextBoxStyleActive"]
@@ -75,6 +83,7 @@ namespace AeroViewer
             (sender as Button).Background = new SolidColorBrush(
                 Color.FromRgb(34, 139, 34));
         }
+        #endregion
 
         private async void UploadCSVFile(object sender, RoutedEventArgs e)
         {
@@ -82,21 +91,24 @@ namespace AeroViewer
             {
                 Process.SetInitialStatus("Открытие файла");
                 CSVService.UpdateFilePath(filePathTextBox.Text);
-                CSVService csvService = CSVService.GetService();
+                IFileService<TunnelExit> csvService = CSVService.CSVServiceObject;
 
                 Process.UpdateStatus("Чтение данных");
-                var tunnelsList = await csvService.Read();
+                var tunnelsList = await csvService.ReadAsync();
 
                 Process.UpdateStatus("Отображение данных");
-                await Task.Run(() => MainPageModel.GetModel().CreateNewTunnelData(tunnelsList));
+                await Task.Run(() => MainPageModel.PageModel.CreateNewTunnelData(tunnelsList));
 
                 await MainPageModel.UploadDelegate();
-                Process.SetFinalStatus("Файл загружен", true);
+
+                int damagedRecNum = MainPageModel.PageModel.NumberOfDamagedRecords;
+                Process.SetFinalStatus($"Файл загружен\n" + ((damagedRecNum == 0) ? string.Empty
+                    : $"Кол-во повреждений: {damagedRecNum}"), true);
             }
             catch (Exception ex)
             {
                 Process.SetFinalStatus("Файл не загружен", false);
-                ExceptionHandler.GetHandler().HandleExceptionWithMessageBox(ex,
+                ExceptionHandler.Handler.HandleExceptionWithMessageBox(ex,
                     "Ошибка при загрузке файла");
             }
         }

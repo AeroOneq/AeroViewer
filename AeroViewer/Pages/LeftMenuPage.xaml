@@ -43,7 +43,7 @@
             <Setter Property="Height" Value="24"/>
             <Setter Property="Width" Value="24"/>
             <Setter Property="Margin" Value="140, 16, 0, 0"/>
-            <Setter Property="Source" Value="Resources/appLogoIcon.png"/>
+            <Setter Property="Source" Value="../Resources/appLogoIcon.png"/>
         </Style>
         <Style x:Key="processTextBlockStyle" TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Top"/>
@@ -180,11 +180,11 @@
                               Width="30"/>
                 <Image x:Name="processSuccessImage"
                        Style="{StaticResource processDoneImageIcon}"
-                       Source="Resources/processDoneIcon.png"
+                       Source="../Resources/processDoneIcon.png"
                        Visibility="Collapsed"/>
                 <Image x:Name="processFailIcon"
                        Style="{StaticResource processDoneImageIcon}"
-                       Source="Resources/failIcon.png"
+                       Source="../Resources/failIcon.png"
                        Visibility="Collapsed"/>
 
 
@@ -206,7 +206,7 @@
                                    Height="23"
                                    Width="23"
                                    Margin="10, 0, 0, 2"
-                                   Source="Resources/importCSVButtonIcon.png"/>
+                                   Source="../Resources/importCSVButtonIcon.png"/>
                             <TextBlock VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Text="Обзор"/>
@@ -224,7 +224,7 @@
                                    Height="23"
                                    Width="23"
                                    Margin="8, 0, 0, 2"
-                                   Source="Resources/uploadCSVButtonIcon.png"/>
+                                   Source="../Resources/uploadCSVButtonIcon.png"/>
                             <TextBlock VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Margin="20, 0, 0, 0"

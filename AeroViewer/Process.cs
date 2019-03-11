@@ -13,6 +13,10 @@ namespace AeroViewer
         public static Dispatcher Dispatcher { get; set; }
         #endregion
 
+        /// <summary>
+        /// Sets initial status and makes all icons collapsed, only loader and the status
+        /// text block are visible
+        /// </summary>
         public static void SetInitialStatus(string initialStatus)
         {
             Dispatcher.Invoke(() =>
@@ -27,6 +31,9 @@ namespace AeroViewer
         public static void UpdateStatus(string newStatus) =>
             Dispatcher.Invoke(() => StatusTextBox.Text = newStatus);
 
+        /// <summary>
+        /// Sets the final status and displays the result status depends on the isSuccess value
+        /// </summary>
         public static void SetFinalStatus(string finalStatus, bool isSuccess)
         {
             Dispatcher.Invoke(() =>

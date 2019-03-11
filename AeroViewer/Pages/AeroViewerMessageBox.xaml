@@ -59,7 +59,7 @@
                        HorizontalAlignment="Center"
                        Width="60"
                        Height="60"
-                       Source="Resources/alertIcon.png"/>
+                       Source="../Resources/alertIcon.png"/>
                 <Rectangle Width="1"
                        Height="100"
                        VerticalAlignment="Center"

@@ -1,29 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AeroViewer.Data;
 using AeroViewer.Interfaces;
 using AeroViewer.Models;
-using System.Collections.ObjectModel;
-using System.Reflection;
-using AeroViewer.Attributes;
-using System.IO;
-using AeroViewer.ViewModels;
 
 namespace AeroViewer.Services
 {
+    /// <summary>
+    /// Service which works with CSV files
+    /// </summary>
     public class CSVService : IFileService<TunnelExit>
     {
         #region Properties
         public Database Database { get; } = new Database();
-        private static CSVService CSVServiceObject { get; set; } = new CSVService();
+
+        private static CSVService csvService;
+        public static CSVService CSVServiceObject
+        {
+            get
+            {
+                if (csvService == null)
+                    csvService = new CSVService();
+                return csvService;
+            }
+        }
         #endregion
 
         #region 
-        public static CSVService GetService() =>
-            CSVServiceObject;
         public static void UpdateFilePath(string filePath) =>
             CSVServiceObject.Database.FilePath = filePath;
         #endregion
@@ -32,16 +35,15 @@ namespace AeroViewer.Services
         public CSVService() { }
         #endregion
 
-        public async Task<List<TunnelExit>> Read()
-        {
-            string filePath = Database.FilePath;
-            MainPageModel.GetModel().DocumentName = filePath.Substring(
-                filePath.LastIndexOf("\\") + 1);
+        #region IFileService implementation
+        public async Task<List<TunnelExit>> ReadAsync() =>
+            await Database.ReadFileDataAsync();
 
-            return await Database.ReadFileDataAsync();
-        }
+        public async Task RewriteAsync(List<TunnelExit> tunnelExits) =>
+            await Database.RewriteDataAsync(tunnelExits);
 
-        public async Task Write(List<TunnelExit> tunnelExits) =>
-            await Database.WriteFileDataAsync(tunnelExits);
+        public async Task AppendAsync(List<TunnelExit> tunnelExits, bool? addHeaderString) =>
+            await Database.AppendDataAsync(tunnelExits, addHeaderString);
+        #endregion
     }
 }

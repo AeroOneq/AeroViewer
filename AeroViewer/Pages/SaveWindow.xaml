@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="Сохранить файл"
         Height="200"
-        Width="450">
+        MaxHeight="200"
+        Width="450"
+        MaxWidth="450">
     <Window.Resources>
         <Style x:Key="saveFileTextBoxStylePassive" TargetType="TextBox">
             <Setter Property="OverridesDefaultStyle" Value="False"/>
@@ -146,10 +148,6 @@
           HorizontalAlignment="Left"
           Width="400"
           Height="300">
-        <TextBlock x:Name="descriptionTextBlock"
-                   Text="Если Вы хотите перезаписать файл, то не изменяйте путь до файла"
-                   Style="{StaticResource descriptionTextBlockStyle}"
-                   Margin="31,33,-31.667,0"/>
         <TextBox x:Name="filePathTextBox"
                  Style="{StaticResource saveFileTextBoxStylePassive}"
                  Margin="25,70,-30.667,0"
@@ -164,7 +162,7 @@
                                    Height="23"
                                    Width="23"
                                    Margin="8, 0, 0, 2"
-                                   Source="Resources/saveChangesIcon.png"/>
+                                   Source="../Resources/saveChangesIcon.png"/>
                     <TextBlock VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Margin="20, 0, 0, 3"
@@ -183,7 +181,7 @@
                            Height="20"
                            Width="20"
                            Margin="8, 0, 0, 2"
-                           Source="Resources/cancelActionIcon.png"/>
+                           Source="../Resources/cancelActionIcon.png"/>
                     <TextBlock VerticalAlignment="Center"
                                HorizontalAlignment="Center"
                                Margin="10, 0, 0, 3"
@@ -191,5 +189,22 @@
                 </Grid>
             </Button.Content>
         </Button>
+        <RadioButton x:Name="rewriteFileRadioBtn"
+                     Content="Перезаписать файл"
+                     HorizontalAlignment="Left"
+                     Margin="31,13,0,0"
+                     Checked="RewriteFileRadioBtnChecked"
+                     VerticalAlignment="Top"/>
+        <RadioButton x:Name="appendFileRadioBtn"
+                     Content="Добавить в конец файла"
+                     HorizontalAlignment="Left"
+                     Margin="170,13,0,0"
+                     Checked="AppendFileRadioBtnChecked"
+                     VerticalAlignment="Top"/>
+        <CheckBox x:Name="addHeadStringRadioBtn"
+                     Content="Добавить заголовчную строку"
+                     HorizontalAlignment="Left"
+                     Margin="170,33,0,0" 
+                     VerticalAlignment="Top"/>
     </Grid>
 </Window>

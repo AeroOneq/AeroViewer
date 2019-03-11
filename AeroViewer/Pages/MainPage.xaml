@@ -258,7 +258,7 @@
                                    Height="23"
                                    Width="23"
                                    Margin="10, 0, 0, 1"
-                                   Source="Resources/addRecordIcon.png"/>
+                                   Source="../Resources/addRecordIcon.png"/>
                                 <TextBlock VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Margin="15, 0, 0, 0"
@@ -277,7 +277,7 @@
                                    Height="23"
                                    Width="23"
                                    Margin="7, 0, 0, 2"
-                                   Source="Resources/saveChangesIcon.png"/>
+                                   Source="../Resources/saveChangesIcon.png"/>
                                 <TextBlock VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Margin="20, 0, 0, 0"
@@ -296,7 +296,7 @@
                                        Height="23"
                                        Width="23"
                                        Margin="15, 0, 0, 2"
-                                       Source="Resources/deleteRecordsIcon.png"/>
+                                       Source="../Resources/deleteRecordsIcon.png"/>
                                 <TextBlock VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
                                            Margin="18, 0, 0, 0"

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AeroViewer.Attributes;
+﻿using AeroViewer.Attributes;
 using AeroViewer.Models;
 
 namespace AeroViewer.ViewModels
@@ -51,6 +46,7 @@ namespace AeroViewer.ViewModels
             District = tunnelExit.District;
             Longitude = tunnelExit.Longitude;
             Latitude = tunnelExit.Latitude;
+
             IsDamaged = tunnelExit.IsDamaged;
         }
     }

@@ -51,11 +51,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Pages\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AeroViewerMessageBox.xaml.cs">
+    <Compile Include="Pages\AeroViewerMessageBox.xaml.cs">
       <DependentUpon>AeroViewerMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Attributes\CustomProperty.cs" />
@@ -64,50 +64,50 @@
     <Compile Include="ExceptionHandler.cs" />
     <Compile Include="Interfaces\IFileService.cs" />
     <Compile Include="Process.cs" />
-    <Compile Include="SaveWindow.xaml.cs">
+    <Compile Include="Pages\SaveWindow.xaml.cs">
       <DependentUpon>SaveWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\CSVService.cs" />
     <Compile Include="ViewModels\MainPageModel.cs" />
     <Compile Include="ViewModels\TunnelExitModel.cs" />
-    <Page Include="AeroViewerMessageBox.xaml">
+    <Page Include="Pages\AeroViewerMessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LeftMenuPage.xaml">
+    <Page Include="Pages\LeftMenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Loader.xaml">
+    <Page Include="Pages\Loader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Pages\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Pages\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="Pages\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LeftMenuPage.xaml.cs">
+    <Compile Include="Pages\LeftMenuPage.xaml.cs">
       <DependentUpon>LeftMenuPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Loader.xaml.cs">
+    <Compile Include="Pages\Loader.xaml.cs">
       <DependentUpon>Loader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Pages\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SaveWindow.xaml">
+    <Page Include="Pages\SaveWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,7 +139,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
+    <None Include="Pages\App.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -155,9 +155,7 @@
   <ItemGroup>
     <Resource Include="Resources\processDoneIcon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\addRecordIcon.png" />
   </ItemGroup>
