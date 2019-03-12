@@ -77,6 +77,7 @@ namespace AeroViewer
         #endregion
 
         #region Event handlers
+#warning relocate this code to XAML
         private void MessageBoxBtnMouseEnter(object sender, MouseEventArgs e)
         {
             Button button = sender as Button;

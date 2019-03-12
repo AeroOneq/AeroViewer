@@ -1,48 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace AeroViewer
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        private Position Position { get; }
+        public static MainWindow Window { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            window = this;
+            Window = this;
 
-            Position = Position.MainWindowPosition;
             Position.UpdateMainWindow(this);
 
             menuFrame.Content = new LeftMenuPage(menuFrame);
             mainFrame.Content = new MainPage(mainFrame);
         }
 
-        private static MainWindow window;
-        public static MainWindow Window { get => window; }
-
         #region Size changed methods
-        private void RepositionELements(object sender, SizeChangedEventArgs e)
+        private void RepositionElements(object sender, SizeChangedEventArgs e)
         {
             if (WindowState == WindowState.Maximized)
                 Position.UpdateMainWindow(this);
 
-            Position.RepositionMainWindowElemets();
+            Position.MainWindowPosition.RepositionMainWindowElemets();
         }
         #endregion
     }

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace AeroViewer.ViewModels
@@ -7,11 +6,11 @@ namespace AeroViewer.ViewModels
     public class AdmAreaSort<T> : IComparer
         where T : TunnelExitModel
     {
-        private readonly ListSortDirection listSortDirection;
+        private ListSortDirection ListSortDirection { get; }
 
         public AdmAreaSort(ListSortDirection listSortDirection)
         {
-            this.listSortDirection = listSortDirection;
+            ListSortDirection = listSortDirection;
         }
 
         public int Compare(object x, object y)
@@ -21,11 +20,11 @@ namespace AeroViewer.ViewModels
 
             if (MainPageModel.PageModel.DistrictCountDictionary[xT.AdmArea] >
                 MainPageModel.PageModel.DistrictCountDictionary[yT.AdmArea])
-                return -1 * ((listSortDirection == ListSortDirection.Descending) ? -1 : 1);
+                return -1 * ((ListSortDirection == ListSortDirection.Descending) ? -1 : 1);
 
             if (MainPageModel.PageModel.DistrictCountDictionary[xT.AdmArea] <
                 MainPageModel.PageModel.DistrictCountDictionary[yT.AdmArea])
-                return 1 * ((listSortDirection == ListSortDirection.Descending) ? -1 : 1);
+                return 1 * ((ListSortDirection == ListSortDirection.Descending) ? -1 : 1);
 
             return 0;
         }

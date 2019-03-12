@@ -198,7 +198,8 @@
                 
                 <Button Style="{StaticResource menuButtonStyle}"
                         Margin="10, 180, 0, 0"
-                        Width="90">
+                        Width="90"
+                        Click="SelectFile">
                     <Button.Content>
                         <Grid>
                             <Image VerticalAlignment="Center"

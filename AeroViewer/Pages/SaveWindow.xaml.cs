@@ -10,6 +10,7 @@ using AeroViewer.ViewModels;
 using System.IO;
 using AeroViewer.Services;
 using AeroViewer.Interfaces;
+using Microsoft.Win32;
 
 namespace AeroViewer
 {
@@ -24,12 +25,11 @@ namespace AeroViewer
 
         #region Constrcutors
         public SaveWindow() { InitializeComponent(); }
-        public SaveWindow(ObservableCollection<TunnelExitModel> tunnelExitModels,
-            string filePath)
+        public SaveWindow(ObservableCollection<TunnelExitModel> tunnelExitModels)
         {
             InitializeComponent();
 
-            filePathTextBox.Text = filePath;
+            filePathTextBox.Text = CSVService.CSVServiceObject.Database.FilePath;
             TunnelExits = CreateTunnelExitsList(tunnelExitModels);
         }
         #endregion
@@ -46,6 +46,7 @@ namespace AeroViewer
         }
 
         #region Event handlers
+#warning relocate this code to XAML
         private void MenuButtonMouseEnter(object sender, MouseEventArgs e)
         {
             (sender as Button).Background = new LinearGradientBrush(
@@ -69,19 +70,6 @@ namespace AeroViewer
             (sender as Button).Background = new SolidColorBrush(
                 Color.FromRgb(139, 0, 0));
         }
-
-        private void RewriteFileRadioBtnChecked(object sender, RoutedEventArgs e)
-        {
-            appendFileRadioBtn.IsChecked = false;
-            addHeadStringRadioBtn.IsChecked = false;
-            addHeadStringRadioBtn.Visibility = Visibility.Collapsed;
-        }
-
-        private void AppendFileRadioBtnChecked(object sender, RoutedEventArgs e)
-        {
-            rewriteFileRadioBtn.IsChecked = false;
-            addHeadStringRadioBtn.Visibility = Visibility.Visible;
-        }
         #endregion
 
         #region Save file methods
@@ -104,30 +92,48 @@ namespace AeroViewer
                 if (rewriteFileRadioBtn.IsChecked == true)
                     await csvService.RewriteAsync(TunnelExits);
                 else
-                    await csvService.AppendAsync(TunnelExits, addHeadStringRadioBtn.IsChecked);
+                    await csvService.AppendAsync(TunnelExits, false);
 
                 Process.SetFinalStatus("Файл перезаписан", true);
             }
             catch (UnauthorizedAccessException ex)
             {
-                HandleException(ex);
+                HandleSaveFileException(ex);
             }
             catch (IOException ex)
             {
-                HandleException(ex);
+                HandleSaveFileException(ex);
             }
             catch (Exception ex)
             {
-                HandleException(ex);
+                HandleSaveFileException(ex);
             }
         }
 
-        private void HandleException(Exception ex)
+        private void HandleSaveFileException(Exception ex)
         {
             Process.SetFinalStatus("Ошибка записи", false);
             ExceptionHandler.Handler.HandleExceptionWithMessageBox(
                 ex, "Ошибка при сохранении файла");
         }
+
+        private void ChooseFilePath(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            {
+                Title = "Выберете файл или папку",
+                Filter = "CSV files(*.csv)|*csv"
+            };
+
+            if (saveFileDialog.ShowDialog() == false)
+                return;
+
+            filePathTextBox.Text = saveFileDialog.FileName;
+            if (filePathTextBox.Text.Substring(filePathTextBox.Text.Length - 4) != ".csv")
+                filePathTextBox.Text += ".csv";
+        }
+
+        private void CancelSavingProcess(object sender, EventArgs e) => Close();
         #endregion
     }
 }

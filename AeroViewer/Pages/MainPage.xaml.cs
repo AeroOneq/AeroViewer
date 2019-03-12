@@ -13,7 +13,6 @@ using System.Collections.ObjectModel;
 using AeroViewer.Services;
 using System.ComponentModel;
 using System.Windows.Data;
-using System.Collections;
 
 namespace AeroViewer
 {
@@ -21,7 +20,6 @@ namespace AeroViewer
     {
         #region Properties
         public Frame ParentFrame { get; set; }
-        private string CurrentFilePath { get; set; }
         #endregion
         public MainPage(Frame parentFrame)
         {
@@ -43,12 +41,8 @@ namespace AeroViewer
             {
                 await Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    csvDataGrid.ItemsSource = MainPageModel.PageModel.TunnelsData;
-
-                    string filePath = MainPageModel.PageModel.DocumentName;
-
-                    MainWindow.Window.Title = filePath;
-                    fileNameTextBlock.Text = filePath.Substring(filePath.LastIndexOf('\\') + 1);
+                    DataContext = null;
+                    DataContext = MainPageModel.PageModel;
                 }));
             });
 
@@ -120,7 +114,7 @@ namespace AeroViewer
             outterBorder.Height = Height;
             topDevisionRectangle.Width = Width - 2 * topDevisionRectangle.Margin.Left;
         }
-
+#warning Remove that code to XAML
         private void MenuButtonMouseEnter(object sender, MouseEventArgs e)
         {
             (sender as Button).Background = new LinearGradientBrush(
@@ -145,12 +139,25 @@ namespace AeroViewer
         #endregion
 
         #region Save/Delete/Create/Filter items operations
-        private void SaveChangesAsync(object sender, RoutedEventArgs e)
+        private void SaveChanges(object sender, RoutedEventArgs e)
         {
-            SaveWindow saveDataWindow = new SaveWindow(csvDataGrid.ItemsSource
-                as ObservableCollection<TunnelExitModel>, CSVService.CSVServiceObject.Database.FilePath);
+            try
+            {
+                SaveWindow saveDataWindow = new SaveWindow(csvDataGrid.ItemsSource
+                    as ObservableCollection<TunnelExitModel>, CSVService.CSVServiceObject.Database.FilePath);
 
-            saveDataWindow.ShowDialog();
+                saveDataWindow.ShowDialog();
+            }
+            catch (NullReferenceException ex)
+            {
+                ExceptionHandler.Handler.HandleExceptionWithMessageBox(ex,
+                    "Ошибка при вызове диалога сохранения");
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handler.HandleExceptionWithMessageBox(ex,
+                    "Ошибка при вызове диалога сохранения");
+            }
         }
 
         /// <summary>

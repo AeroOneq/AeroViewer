@@ -10,7 +10,8 @@ namespace AeroViewer.ViewModels
     public class MainPageModel
     {
         #region View Model Properties
-        public string DocumentName { get; set; } = "Название документа";
+        public string ShortDocumentName { get; set; } = "Название документа";
+        public string FullDocumentName { get; set; } = "Название документа";
         public ObservableCollection<TunnelExitModel> TunnelsData { get; set; }
         #endregion
 
@@ -35,10 +36,7 @@ namespace AeroViewer.ViewModels
         /// <returns>The number of damaged records</returns>
         public void CreateNewTunnelData(List<TunnelExit> tunnelExitsList)
         {
-            PageModel.TunnelsData = new ObservableCollection<TunnelExitModel>();
-            NumberOfDamagedRecords = 0;
-            DistrictCountDictionary = new Dictionary<string, int>();
-            PageModel.DocumentName = CSVService.CSVServiceObject.Database.FilePath;
+            InitializePropeties();
 
             foreach (TunnelExit tunnelExit in tunnelExitsList)
             {
@@ -53,6 +51,16 @@ namespace AeroViewer.ViewModels
                 else
                     DistrictCountDictionary[tunnelExit.AdmArea] = 1;
             }
+        }
+
+        private void InitializePropeties()
+        {
+            PageModel.TunnelsData = new ObservableCollection<TunnelExitModel>();
+            NumberOfDamagedRecords = 0;
+            DistrictCountDictionary = new Dictionary<string, int>();
+            PageModel.FullDocumentName = CSVService.CSVServiceObject.Database.FilePath;
+            PageModel.ShortDocumentName = PageModel.FullDocumentName.Substring(
+                PageModel.FullDocumentName.LastIndexOf("\\") + 1);
         }
 
         #region Singleton

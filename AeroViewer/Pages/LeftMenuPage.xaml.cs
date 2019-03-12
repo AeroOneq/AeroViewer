@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using AeroViewer.Models;
 using AeroViewer.Services;
 using AeroViewer.Interfaces;
 using AeroViewer.ViewModels;
+using Microsoft.Win32;
 
 namespace AeroViewer
 {
@@ -31,7 +24,7 @@ namespace AeroViewer
             SetProcessParams();
 
             ParentFrame = parentFrame;
-            parentFrame.SizeChanged += RepositionPageElements;
+            parentFrame.SizeChanged += ResizePageElements;
         }
 
         /// <summary>
@@ -50,7 +43,7 @@ namespace AeroViewer
         /// <summary>
         /// Changes the size of some elements when the size of the window is changed
         /// </summary>
-        private void RepositionPageElements(object sender, SizeChangedEventArgs e)
+        private void ResizePageElements(object sender, SizeChangedEventArgs e)
         {
             Width = ParentFrame.Width;
             Height = ParentFrame.Height;
@@ -60,6 +53,7 @@ namespace AeroViewer
         }
 
         #region Event handlers
+#warning relocate this code to XAML
         private void FilePathTextBoxGotFocus(object sender, RoutedEventArgs e)
         {
             (sender as TextBox).Style = Resources["menuTextBoxStyleActive"]
@@ -116,6 +110,33 @@ namespace AeroViewer
             finally
             {
                 uploadFileBtn.IsEnabled = true;
+            }
+        }
+
+        private void SelectFile(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog()
+                {
+                    Filter = "CSV files(*csv)|*csv",
+                    Title = "Выберете CSV файл для открытия"
+                };
+
+                if (openFileDialog.ShowDialog() != true)
+                    return;
+
+                filePathTextBox.Text = openFileDialog.FileName;
+            }
+            catch (NullReferenceException ex)
+            {
+                ExceptionHandler.Handler.HandleExceptionWithMessageBox(ex,
+                    "Ошибка при выборе файла");
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handler.HandleExceptionWithMessageBox(ex,
+                    "Ошибка при выборе файла");
             }
         }
     }

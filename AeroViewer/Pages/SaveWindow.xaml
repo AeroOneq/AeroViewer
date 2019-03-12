@@ -171,7 +171,7 @@
             </Button.Content>
         </Button>
         <Button Style="{StaticResource cancelBtnStyle}"
-                Click="SaveFile"
+                Click="CancelSavingProcess"
                 Width="100"
                 Margin="205,121,0,0">
             <Button.Content>
@@ -189,22 +189,36 @@
                 </Grid>
             </Button.Content>
         </Button>
+        <Button Style="{StaticResource saveFileButtonStyle}"
+                Click="ChooseFilePath"
+                Width="100"
+                Margin="25,121,0,0">
+            <Button.Content>
+                <Grid>
+                    <Image VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Height="20"
+                           Width="20"
+                           Margin="8, 0, 0, 2"
+                           Source="../Resources/uploadCSVButtonIcon.png"/>
+                    <TextBlock VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Margin="10, 0, 0, 3"
+                               Text="Обзор"/>
+                </Grid>
+            </Button.Content>
+        </Button>
         <RadioButton x:Name="rewriteFileRadioBtn"
                      Content="Перезаписать файл"
                      HorizontalAlignment="Left"
                      Margin="31,13,0,0"
-                     Checked="RewriteFileRadioBtnChecked"
+                     IsChecked="True"
                      VerticalAlignment="Top"/>
         <RadioButton x:Name="appendFileRadioBtn"
                      Content="Добавить в конец файла"
                      HorizontalAlignment="Left"
-                     Margin="170,13,0,0"
-                     Checked="AppendFileRadioBtnChecked"
-                     VerticalAlignment="Top"/>
-        <CheckBox x:Name="addHeadStringRadioBtn"
-                     Content="Добавить заголовчную строку"
-                     HorizontalAlignment="Left"
-                     Margin="170,33,0,0" 
+                     Margin="31,33,0,0"
+                     IsChecked="False"
                      VerticalAlignment="Top"/>
     </Grid>
 </Window>

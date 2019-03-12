@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450"
       d:DesignWidth="800"
-      Title="MainPage">
+      Title="{Binding FullDocumentName}">
     <Page.Resources>
         <Style x:Key="propertyValueTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Arial, Verdana"/>
@@ -245,7 +245,7 @@
                     <TextBlock x:Name="fileNameTextBlock"
                                Style="{StaticResource propertyValueTextBlockStyle}"
                                Margin="20, 35, 0, 0"
-                               Text="{Binding DocumentName}"/>
+                               Text="{Binding ShortDocumentName}"/>
 
                     <Button x:Name="saveChangesBtn"
                             Style="{StaticResource mainPageBtnStyle}"

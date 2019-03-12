@@ -34,10 +34,6 @@ namespace AeroViewer.Data
         public string[] FirstLine { get; private set; } = new string[1];
         #endregion
 
-        #region Constructors
-        public Database() { }
-        #endregion
-
         public async Task<List<TunnelExit>> ReadFileDataAsync()
         {
             return await Task.Run(() =>

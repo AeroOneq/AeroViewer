@@ -3,8 +3,8 @@
     public class Tunnel
     {
         #region Parse constants
-        private const string GlobalIDPropertyName = "\"\"global_id\"\":";
-        private const string ValuePropertyName = "\"\"value\"\":";
+        private static string GlobalIDPropertyName { get; } = "\"\"global_id\"\":";
+        private static string ValuePropertyName { get; } = "\"\"value\"\":";
         #endregion
 
         #region Properties
@@ -45,7 +45,7 @@
         }
 
         /// <summary>
-        /// Returns the data representation in a format which is defined in a CSV file
+        /// Returns the data representation in a format which is defined in an initial CSV file
         /// </summary>
         public override string ToString() =>
             "\"{ \"\"global_id\"\": " + GlobalID + ", \"\"value\"\": \"\"" + Name + "\"\" }\"";
