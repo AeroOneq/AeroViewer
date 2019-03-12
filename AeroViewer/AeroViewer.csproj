@@ -68,6 +68,7 @@
       <DependentUpon>SaveWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\CSVService.cs" />
+    <Compile Include="ViewModels\AdmAreaSort.cs" />
     <Compile Include="ViewModels\MainPageModel.cs" />
     <Compile Include="ViewModels\TunnelExitModel.cs" />
     <Page Include="Pages\AeroViewerMessageBox.xaml">

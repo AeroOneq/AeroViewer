@@ -87,6 +87,8 @@ namespace AeroViewer
 
         private async void UploadCSVFile(object sender, RoutedEventArgs e)
         {
+            Button uploadFileBtn = sender as Button;
+            uploadFileBtn.IsEnabled = false;
             try
             {
                 Process.SetInitialStatus("Открытие файла");
@@ -110,6 +112,10 @@ namespace AeroViewer
                 Process.SetFinalStatus("Файл не загружен", false);
                 ExceptionHandler.Handler.HandleExceptionWithMessageBox(ex,
                     "Ошибка при загрузке файла");
+            }
+            finally
+            {
+                uploadFileBtn.IsEnabled = true;
             }
         }
     }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using AeroViewer.Models;
+using AeroViewer.Services;
 
 namespace AeroViewer.ViewModels
 {
@@ -20,6 +21,7 @@ namespace AeroViewer.ViewModels
         /// </summary>
         public static UploadDelegate UploadDelegate { get; set; }
         public int NumberOfDamagedRecords { get; set; } = 0;
+        public Dictionary<string, int> DistrictCountDictionary { get; set; }
         #endregion
 
         #region Constructors
@@ -35,13 +37,21 @@ namespace AeroViewer.ViewModels
         {
             PageModel.TunnelsData = new ObservableCollection<TunnelExitModel>();
             NumberOfDamagedRecords = 0;
+            DistrictCountDictionary = new Dictionary<string, int>();
+            PageModel.DocumentName = CSVService.CSVServiceObject.Database.FilePath;
 
             foreach (TunnelExit tunnelExit in tunnelExitsList)
             {
-                if (tunnelExit.IsDamaged == "OK")
-                    TunnelsData.Add(new TunnelExitModel(tunnelExit));
-                else
+                if (tunnelExit.IsDamaged == "Damaged")
                     NumberOfDamagedRecords++;
+                else
+                    TunnelsData.Add(new TunnelExitModel(tunnelExit));
+
+
+                if (DistrictCountDictionary.ContainsKey(tunnelExit.AdmArea))
+                    DistrictCountDictionary[tunnelExit.AdmArea]++;
+                else
+                    DistrictCountDictionary[tunnelExit.AdmArea] = 1;
             }
         }
 

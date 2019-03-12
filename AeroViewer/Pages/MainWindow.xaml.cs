@@ -24,13 +24,17 @@ namespace AeroViewer
         public MainWindow()
         {
             InitializeComponent();
+            window = this;
 
             Position = Position.MainWindowPosition;
             Position.UpdateMainWindow(this);
-            
+
             menuFrame.Content = new LeftMenuPage(menuFrame);
             mainFrame.Content = new MainPage(mainFrame);
         }
+
+        private static MainWindow window;
+        public static MainWindow Window { get => window; }
 
         #region Size changed methods
         private void RepositionELements(object sender, SizeChangedEventArgs e)

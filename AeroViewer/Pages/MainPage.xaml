@@ -65,7 +65,7 @@
                             <ContentPresenter HorizontalAlignment="Left"
                                               VerticalAlignment="Top"
                                               Height="30"
-                                              Width="110"/>
+                                              Width="{TemplateBinding Width}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -96,7 +96,7 @@
                             <ContentPresenter HorizontalAlignment="Left"
                                               VerticalAlignment="Top"
                                               Height="30"
-                                              Width="110"/>
+                                              Width="{TemplateBinding Width}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -158,7 +158,7 @@
                                         <Storyboard>
                                             <ColorAnimation Storyboard.TargetName="border"
                                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                            To="#dcfbda" 
+                                                            To="#F0FFE9" 
                                                             SpeedRatio="100"/>
                                         </Storyboard>
                                     </VisualState>
@@ -247,9 +247,29 @@
                                Margin="20, 35, 0, 0"
                                Text="{Binding DocumentName}"/>
 
-                    <Button x:Name="addNewRecordBtn"
+                    <Button x:Name="saveChangesBtn"
                             Style="{StaticResource mainPageBtnStyle}"
                             Margin="20, 70, 0, 0"
+                            Click="SaveChangesAsync">
+                        <Button.Content>
+                            <Grid>
+                                <Image VerticalAlignment="Center"
+                                       HorizontalAlignment="Left"
+                                       Height="23"
+                                       Width="23"
+                                       Margin="7, 0, 0, 2"
+                                       Source="../Resources/saveChangesIcon.png"/>
+                                <TextBlock VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Margin="20, 0, 0, 0"
+                                           Text="Сохранить"/>
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                    <Button x:Name="addNewRecordBtn"
+                            Style="{StaticResource mainPageBtnStyle}"
+                            Margin="160, 70, 0, 0"
+                            Width="100"
                             Click="AddNewRecord">
                         <Button.Content>
                             <Grid>
@@ -257,37 +277,19 @@
                                    HorizontalAlignment="Left"
                                    Height="23"
                                    Width="23"
-                                   Margin="10, 0, 0, 1"
+                                   Margin="5, 0, 0, 1"
                                    Source="../Resources/addRecordIcon.png"/>
                                 <TextBlock VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
-                                       Margin="15, 0, 0, 0"
-                                       Text="Добавить"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
-                    <Button x:Name="saveChangesBtn"
-                        Style="{StaticResource mainPageBtnStyle}"
-                        Margin="140, 70, 0, 0"
-                            Click="SaveChangesAsync">
-                        <Button.Content>
-                            <Grid>
-                                <Image VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   Height="23"
-                                   Width="23"
-                                   Margin="7, 0, 0, 2"
-                                   Source="../Resources/saveChangesIcon.png"/>
-                                <TextBlock VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
                                        Margin="20, 0, 0, 0"
-                                       Text="Сохранить"/>
+                                       Text="Добавить"/>
                             </Grid>
                         </Button.Content>
                     </Button>
                     <Button x:Name="deleteRecordBtn"
                             Style="{StaticResource deleteBtnStyle}"
-                            Margin="260, 70, 0, 0"
+                            Margin="270, 70, 0, 0"
+                            Width="100"
                             Click="DeleteRecordsAsync">
                         <Button.Content>
                             <Grid>
@@ -295,7 +297,7 @@
                                        HorizontalAlignment="Left"
                                        Height="23"
                                        Width="23"
-                                       Margin="15, 0, 0, 2"
+                                       Margin="10, 0, 0, 2"
                                        Source="../Resources/deleteRecordsIcon.png"/>
                                 <TextBlock VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
