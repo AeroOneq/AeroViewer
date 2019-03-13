@@ -75,22 +75,5 @@ namespace AeroViewer
             buttonsGrid.Children.Add(button);
         }
         #endregion
-
-        #region Event handlers
-#warning relocate this code to XAML
-        private void MessageBoxBtnMouseEnter(object sender, MouseEventArgs e)
-        {
-            Button button = sender as Button;
-            button.Background = new SolidColorBrush(Color.FromRgb(34, 139, 34));
-            button.Foreground = new SolidColorBrush(Colors.White);
-        }
-
-        private void MessageBoxBtnMouseLeave(object sender, MouseEventArgs e)
-        {
-            Button button = sender as Button;
-            button.Background = new SolidColorBrush(Colors.White);
-            button.Foreground = new SolidColorBrush(Color.FromRgb(34, 139, 34));
-        }
-        #endregion
     }
 }

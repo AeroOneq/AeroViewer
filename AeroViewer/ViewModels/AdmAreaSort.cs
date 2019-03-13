@@ -8,10 +8,8 @@ namespace AeroViewer.ViewModels
     {
         private ListSortDirection ListSortDirection { get; }
 
-        public AdmAreaSort(ListSortDirection listSortDirection)
-        {
+        public AdmAreaSort(ListSortDirection listSortDirection) =>
             ListSortDirection = listSortDirection;
-        }
 
         public int Compare(object x, object y)
         {

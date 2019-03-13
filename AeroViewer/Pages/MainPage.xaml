@@ -12,7 +12,7 @@
         <Style x:Key="propertyValueTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Arial, Verdana"/>
             <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Foreground" Value="{StaticResource defaultTextColot}"/>
+            <Setter Property="Foreground" Value="{StaticResource defaultTextBrush}"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="FontWeight" Value="ExtraLight"/>
@@ -25,13 +25,10 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="BorderBrush" Value="{StaticResource backgroundBrush}"/>
         </Style>
-        <Style TargetType="CheckBox">
-            <Setter Property="Background" Value="Red"/>
-        </Style>
         <Style x:Key="propertyNameTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Arial, Verdana"/>
             <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Foreground" Value="{StaticResource hintColorText}"/>
+            <Setter Property="Foreground" Value="{StaticResource hintBrushText}"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="FontWeight" Value="DemiBold"/>
@@ -40,70 +37,7 @@
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Height" Value="1"/>
-            <Setter Property="Fill" Value="{StaticResource hintColorText}"/>
-        </Style>
-
-        <Style x:Key="mainPageBtnStyle" TargetType="Button">
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="FontFamily" Value="Arial, Verdana"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="110"/>
-            <Setter Property="Foreground" Value="{StaticResource buttonTextColor}"/>
-            <Setter Property="Background" Value="{StaticResource darkMainThemeColor}"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="5"
-                                BorderBrush="{StaticResource darkMainThemeColor}"
-                                BorderThickness="1"
-                                SnapsToDevicePixels="True"
-                                Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Left"
-                                              VerticalAlignment="Top"
-                                              Height="30"
-                                              Width="{TemplateBinding Width}"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-            <EventSetter Event="MouseEnter" Handler="MenuButtonMouseEnter"/>
-            <EventSetter Event="MouseLeave" Handler="MenuButtonMouseLeave"/>
-        </Style>
-        <Style x:Key="deleteBtnStyle" TargetType="Button">
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="FontFamily" Value="Arial, Verdana"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="110"/>
-            <Setter Property="Foreground" Value="{StaticResource buttonTextColor}"/>
-            <Setter Property="Background" Value="{StaticResource dangerousActionsColor}"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="5"
-                                BorderBrush="{StaticResource dangerousActionsColor}"
-                                BorderThickness="1"
-                                SnapsToDevicePixels="True"
-                                Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Left"
-                                              VerticalAlignment="Top"
-                                              Height="30"
-                                              Width="{TemplateBinding Width}"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-            <EventSetter Event="MouseEnter" Handler="DeleteButtonMouseEnter"/>
-            <EventSetter Event="MouseLeave" Handler="DeleteButtonMouseLeave"/>
+            <Setter Property="Fill" Value="{StaticResource hintBrushText}"/>
         </Style>
 
         <Style x:Key="dataGridStyle" TargetType="DataGrid">
@@ -127,7 +61,7 @@
             <Setter Property="CanUserResizeColumns" Value="True"/>
         </Style>
         <Style x:Key="dataGridHeaderStyle" TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="{StaticResource darkMainThemeColor}"/>
+            <Setter Property="Background" Value="{StaticResource darkMainThemeBrush}"/>
             <Setter Property="FontFamily" Value="Arial, Verdana"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0, 0, 0.5, 0"/>
@@ -191,36 +125,8 @@
             </Setter>
         </Style>
 
-        <Style x:Key="filterTextBoxStyle" TargetType="TextBox">
-            <Setter Property="FontFamily" Value="Arial, Verdana"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Width" Value="140"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Padding" Value="0, 8, 0, 0"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Border BorderThickness="1.5, 1.5, 1.5, 1.5" 
-                                BorderBrush="{StaticResource darkMainThemeColor}"
-                                CornerRadius="5"
-                                SnapsToDevicePixels="True">
-                            <ScrollViewer Name="PART_ContentHost" 
-                                          Background="White"
-                                          Width="130"
-                                          Height="30"   
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <Style x:Key="filterComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="BorderBrush" Value="{StaticResource darkMainThemeColor}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource darkMainThemeBrush}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Width" Value="70"/>
             <Setter Property="Height" Value="25"/>
@@ -239,18 +145,10 @@
                 Style="{StaticResource outterBorderStyle}">
             <Grid>
                 <Grid x:Name="topOptionsGrid">
-                    <TextBlock Margin="20, 20, 0, 0"
-                               Text="Имя файла:"
-                               Style="{StaticResource propertyNameTextBlockStyle}"/>
-                    <TextBlock x:Name="fileNameTextBlock"
-                               Style="{StaticResource propertyValueTextBlockStyle}"
-                               Margin="20, 35, 0, 0"
-                               Text="{Binding ShortDocumentName}"/>
-
                     <Button x:Name="saveChangesBtn"
-                            Style="{StaticResource mainPageBtnStyle}"
-                            Margin="20, 70, 0, 0"
-                            Click="SaveChangesAsync">
+                            Style="{StaticResource appDefaultButtonStyle}"
+                            Margin="20, 15, 0, 0"
+                            Click="SaveChanges">
                         <Button.Content>
                             <Grid>
                                 <Image VerticalAlignment="Center"
@@ -266,8 +164,17 @@
                             </Grid>
                         </Button.Content>
                     </Button>
+
+                    <TextBlock Style="{StaticResource propertyNameTextBlockStyle}"
+                               Text="Количество записей"
+                               Margin="20, 55, 0, 0"/>
+                    <TextBox Style="{StaticResource appTextBoxStyle}"
+                             Width="110"
+                             Margin="20, 70, 0, 0"
+                             TextChanged="UpdateNumberOfVisibleRecords"/>
+                    
                     <Button x:Name="addNewRecordBtn"
-                            Style="{StaticResource mainPageBtnStyle}"
+                            Style="{StaticResource appDefaultButtonStyle}"
                             Margin="160, 70, 0, 0"
                             Width="100"
                             Click="AddNewRecord">
@@ -277,17 +184,17 @@
                                    HorizontalAlignment="Left"
                                    Height="23"
                                    Width="23"
-                                   Margin="5, 0, 0, 1"
+                                   Margin="7, 0, 0, 1"
                                    Source="../Resources/addRecordIcon.png"/>
                                 <TextBlock VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
-                                       Margin="20, 0, 0, 0"
+                                       Margin="15, 0, 0, 0"
                                        Text="Добавить"/>
                             </Grid>
                         </Button.Content>
                     </Button>
                     <Button x:Name="deleteRecordBtn"
-                            Style="{StaticResource deleteBtnStyle}"
+                            Style="{StaticResource appDangerousBtnStyle}"
                             Margin="270, 70, 0, 0"
                             Width="100"
                             Click="DeleteRecordsAsync">
@@ -307,8 +214,9 @@
                         </Button.Content>
                     </Button>
                     <TextBox x:Name="filterTextBox"
-                             Style="{StaticResource filterTextBoxStyle}" 
+                             Style="{StaticResource appTextBoxStyle}" 
                              Margin="380, 70, 0, 0"
+                             Width="140"
                              TextChanged="FindAllRecords"/>
                     <ComboBox x:Name="filterComboBox"
                               Margin="530, 72, 0, 0"
@@ -321,7 +229,6 @@
                                Style="{StaticResource devisionRectanleStyle}"
                                Margin="20, 110, 0, 0"/>
                 </Grid>
-
                 <Grid x:Name="dataBackgroundGrid"
                       Margin="20, 120, 20, 0">
                     <DataGrid x:Name="csvDataGrid"

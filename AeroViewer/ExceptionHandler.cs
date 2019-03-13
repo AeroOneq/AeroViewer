@@ -26,9 +26,6 @@ namespace AeroViewer
                 return exceptionHandler;
             }
         }
-
-        public static void UpdateDispatcher(Dispatcher dispatcher) =>
-            Handler.Dispatcher = dispatcher;
         #endregion
 
         #region Constructors
@@ -37,5 +34,8 @@ namespace AeroViewer
 
         public void HandleExceptionWithMessageBox(Exception ex, string title) =>
             AeroViewerMessageBox.ShowMessageBox(title, ex.Message, System.Windows.MessageBoxButton.OK);
+
+        public static void UpdateDispatcher(Dispatcher dispatcher) =>
+            Handler.Dispatcher = dispatcher;
     }
 }

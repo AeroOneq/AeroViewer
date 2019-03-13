@@ -15,7 +15,7 @@
             <Setter Property="OverridesDefaultStyle" Value="False"/>
             <Setter Property="FontFamily" Value="Arial, Verdana"/>
             <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Foreground" Value="{StaticResource defaultTextColot}"/>
+            <Setter Property="Foreground" Value="{StaticResource defaultTextBrush}"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="Width" Value="220"/>
@@ -27,7 +27,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border BorderThickness="1.5, 1.5, 1.5, 1.5" 
-                                    BorderBrush="{StaticResource darkMainThemeColor}"
+                                    BorderBrush="{StaticResource darkMainThemeBrush}"
                                     CornerRadius="5"
                                     SnapsToDevicePixels="True">
                             <ScrollViewer Name="PART_ContentHost" 
@@ -45,7 +45,7 @@
             <Setter Property="OverridesDefaultStyle" Value="False"/>
             <Setter Property="FontFamily" Value="Arial, Verdana"/>
             <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Foreground" Value="{StaticResource defaultTextColot}"/>
+            <Setter Property="Foreground" Value="{StaticResource defaultTextBrush}"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="Width" Value="220"/>
@@ -57,7 +57,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border BorderThickness="1.5, 1.5, 1.5, 1.5" 
-                                BorderBrush="{StaticResource lightMainThemeColor}"
+                                BorderBrush="{StaticResource lightMainThemeBrush}"
                                 CornerRadius="5"
                                 SnapsToDevicePixels="True">
                             <ScrollViewer Name="PART_ContentHost" 
@@ -71,37 +71,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="saveFileButtonStyle" TargetType="Button">
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="FontFamily" Value="Arial, Verdana"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="110"/>
-            <Setter Property="Foreground" Value="{StaticResource buttonTextColor}"/>
-            <Setter Property="Background" Value="{StaticResource darkMainThemeColor}"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="5"
-                                BorderBrush="{StaticResource darkMainThemeColor}"
-                                BorderThickness="1"
-                                SnapsToDevicePixels="True"
-                                Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Left"
-                                              VerticalAlignment="Top"
-                                              Height="30"
-                                              Width="110"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
 
-            <EventSetter Event="MouseEnter" Handler="MenuButtonMouseEnter"/>
-            <EventSetter Event="MouseLeave" Handler="MenuButtonMouseLeave"/>
-        </Style>
         <Style x:Key="descriptionTextBlockStyle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Arial, Verdana"/>
             <Setter Property="FontSize" Value="14"/>
@@ -112,37 +82,6 @@
             <Setter Property="TextAlignment" Value="Left"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
-        <Style x:Key="cancelBtnStyle" TargetType="Button">
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="FontFamily" Value="Arial, Verdana"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="110"/>
-            <Setter Property="Foreground" Value="{StaticResource buttonTextColor}"/>
-            <Setter Property="Background" Value="{StaticResource dangerousActionsColor}"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="5"
-                                BorderBrush="{StaticResource dangerousActionsColor}"
-                                BorderThickness="1"
-                                SnapsToDevicePixels="True"
-                                Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Left"
-                                              VerticalAlignment="Top"
-                                              Height="30"
-                                              Width="110"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-            <EventSetter Event="MouseEnter" Handler="DeleteButtonMouseEnter"/>
-            <EventSetter Event="MouseLeave" Handler="DeleteButtonMouseLeave"/>
-        </Style>
     </Window.Resources>
     <Grid VerticalAlignment="Top"
           HorizontalAlignment="Left"
@@ -152,7 +91,7 @@
                  Style="{StaticResource saveFileTextBoxStylePassive}"
                  Margin="25,70,-30.667,0"
                  Width="405"/>
-        <Button Style="{StaticResource saveFileButtonStyle}"
+        <Button Style="{StaticResource appDefaultButtonStyle}"
                 Click="SaveFile"
                 Margin="320,121,-30.667,0">
             <Button.Content>
@@ -165,12 +104,12 @@
                                    Source="../Resources/saveChangesIcon.png"/>
                     <TextBlock VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
-                                       Margin="20, 0, 0, 3"
+                                       Margin="20, 0, 0, 2"
                                        Text="Сохранить"/>
                 </Grid>
             </Button.Content>
         </Button>
-        <Button Style="{StaticResource cancelBtnStyle}"
+        <Button Style="{StaticResource appDangerousBtnStyle}"
                 Click="CancelSavingProcess"
                 Width="100"
                 Margin="205,121,0,0">
@@ -180,16 +119,16 @@
                            HorizontalAlignment="Left"
                            Height="20"
                            Width="20"
-                           Margin="8, 0, 0, 2"
+                           Margin="13, 0, 0, 2"
                            Source="../Resources/cancelActionIcon.png"/>
                     <TextBlock VerticalAlignment="Center"
                                HorizontalAlignment="Center"
-                               Margin="10, 0, 0, 3"
+                               Margin="17, 0, 0, 2"
                                Text="Отмена"/>
                 </Grid>
             </Button.Content>
         </Button>
-        <Button Style="{StaticResource saveFileButtonStyle}"
+        <Button Style="{StaticResource appDefaultButtonStyle}"
                 Click="ChooseFilePath"
                 Width="100"
                 Margin="25,121,0,0">
@@ -199,11 +138,11 @@
                            HorizontalAlignment="Left"
                            Height="20"
                            Width="20"
-                           Margin="8, 0, 0, 2"
+                           Margin="15, 0, 0, 2"
                            Source="../Resources/uploadCSVButtonIcon.png"/>
                     <TextBlock VerticalAlignment="Center"
                                HorizontalAlignment="Center"
-                               Margin="10, 0, 0, 3"
+                               Margin="10, 0, 0, 2"
                                Text="Обзор"/>
                 </Grid>
             </Button.Content>

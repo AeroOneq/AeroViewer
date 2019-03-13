@@ -23,8 +23,6 @@ namespace AeroViewer
                 return mainWindowPosition;
             }
         }
-        public static void UpdateMainWindow(MainWindow mainWindow) =>
-            MainWindowPosition.MainWindow = mainWindow;
         #endregion
 
         #region Properties
@@ -51,6 +49,8 @@ namespace AeroViewer
         private Position() { }
         #endregion
 
+        public static void UpdateMainWindow(MainWindow mainWindow) =>
+            MainWindowPosition.MainWindow = mainWindow;
         #region Size changed methods
         public void RepositionMainWindowElemets()
         {
@@ -81,10 +81,7 @@ namespace AeroViewer
             return mainWindowGrids.Find(g => g.Name == "leftGrid");
         }
 
-        private Grid GetBackGroundGrid()
-        {
-            return MainWindow.Content as Grid;
-        }
+        private Grid GetBackGroundGrid() => MainWindow.Content as Grid;
 
         private Grid GetMainGrid()
         {

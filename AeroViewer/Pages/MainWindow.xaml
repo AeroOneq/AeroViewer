@@ -10,8 +10,8 @@
         MinHeight="450"
         Width="900"
         Height="450"
-        Background="{StaticResource hintColorText}"
-        SizeChanged="RepositionELements">
+        Background="{StaticResource hintBrushText}"
+        SizeChanged="RepositionElements">
     <Window.Resources>
         <Style x:Key="leftGridStyle" TargetType="Grid">
             <Setter Property="VerticalAlignment" Value="Top"/>
@@ -19,12 +19,12 @@
             <Setter Property="Height" Value="450"/>
             <Setter Property="Width" Value="250"/>
             <Setter Property="Margin" Value="0"/>
-            <Setter Property="Background" Value="{StaticResource hintColorText}"/>
+            <Setter Property="Background" Value="{StaticResource hintBrushText}"/>
         </Style>
         <Style x:Key="leftFrameStyle" TargetType="Frame">
             <Setter Property="Width" Value="250"/>
             <Setter Property="Height" Value="450"/>
-            <Setter Property="Background" Value="{StaticResource hintColorText}"/>
+            <Setter Property="Background" Value="{StaticResource hintBrushText}"/>
             <Setter Property="NavigationUIVisibility" Value="Hidden"/>
         </Style>
         <Style x:Key="mainGridStyle" TargetType="Grid">
@@ -33,12 +33,12 @@
             <Setter Property="Margin" Value="250, 0, 0, 0"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="Background" Value="{StaticResource hintColorText}"/>
+            <Setter Property="Background" Value="{StaticResource hintBrushText}"/>
         </Style>
         <Style x:Key="mainFrameStyle" TargetType="Frame">
             <Setter Property="Width" Value="650"/>
             <Setter Property="Height" Value="450"/>
-            <Setter Property="Background" Value="{StaticResource hintColorText}"/>
+            <Setter Property="Background" Value="{StaticResource hintBrushText}"/>
             <Setter Property="NavigationUIVisibility" Value="Hidden"/>
             <Setter Property="Padding" Value="0"/>
         </Style>

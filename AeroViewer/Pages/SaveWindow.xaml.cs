@@ -45,33 +45,6 @@ namespace AeroViewer
             return tunnelExits;
         }
 
-        #region Event handlers
-#warning relocate this code to XAML
-        private void MenuButtonMouseEnter(object sender, MouseEventArgs e)
-        {
-            (sender as Button).Background = new LinearGradientBrush(
-                Color.FromRgb(34, 139, 34), Color.FromRgb(0, 162, 80), 38);
-        }
-
-        private void MenuButtonMouseLeave(object sender, MouseEventArgs e)
-        {
-            (sender as Button).Background = new SolidColorBrush(
-                Color.FromRgb(34, 139, 34));
-        }
-
-        private void DeleteButtonMouseEnter(object sender, MouseEventArgs e)
-        {
-            (sender as Button).Background = new LinearGradientBrush(
-                Color.FromRgb(139, 0, 0), Color.FromRgb(178, 34, 24), 38);
-        }
-
-        private void DeleteButtonMouseLeave(object sender, MouseEventArgs e)
-        {
-            (sender as Button).Background = new SolidColorBrush(
-                Color.FromRgb(139, 0, 0));
-        }
-        #endregion
-
         #region Save file methods
         /// <summary>
         /// Saves the changes in CSV file in a mode which was selected by user

@@ -17,9 +17,9 @@
             <Setter Property="Width" Value="90"/>
             <Setter Property="FontFamily" Value="Arial, Verdana"/>
             <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Foreground" Value="{StaticResource darkMainThemeColor}"/>
+            <Setter Property="Foreground" Value="{StaticResource darkMainThemeBrush}"/>
             <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="{StaticResource darkMainThemeColor}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource darkMainThemeBrush}"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -28,18 +28,41 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border CornerRadius="5"
-                                BorderBrush="{StaticResource darkMainThemeColor}"
+                                BorderBrush="{StaticResource darkMainThemeBrush}"
                                 BorderThickness="1"
-                                SnapsToDevicePixels="True"
-                                Background="{TemplateBinding Background}">
+                                SnapsToDevicePixels="True">
+                            <Border.Background>
+                                <LinearGradientBrush>
+                                    <GradientStop Color="{StaticResource darkMainThemeColor}"></GradientStop>
+                                    <GradientStop Color="{StaticResource darkMainThemeColor}" Offset="0.8"></GradientStop>
+                                </LinearGradientBrush>
+                            </Border.Background>
                             <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center"/>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="Background.GradientStops[1].Color"
+                                                            SpeedRatio="100"
+                                                            To="#00a250"
+                                                            AutoReverse="False"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState Name="Normal">
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetProperty="Background.GradientStops[1].Color"
+                                                            SpeedRatio="100"
+                                                            To="{StaticResource darkMainThemeColor}"
+                                                            AutoReverse="False"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <EventSetter Event="MouseEnter" Handler="MessageBoxBtnMouseEnter"/>
-            <EventSetter Event="MouseLeave" Handler="MessageBoxBtnMouseLeave"/>
         </Style>
     </Window.Resources>
     <Window.Content>

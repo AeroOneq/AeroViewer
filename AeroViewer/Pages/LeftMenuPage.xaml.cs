@@ -52,33 +52,6 @@ namespace AeroViewer
             outterBorder.Height = Height;
         }
 
-        #region Event handlers
-#warning relocate this code to XAML
-        private void FilePathTextBoxGotFocus(object sender, RoutedEventArgs e)
-        {
-            (sender as TextBox).Style = Resources["menuTextBoxStyleActive"]
-                as Style;
-        }
-
-        private void FilePathTextBoxLostFocus(object sender, RoutedEventArgs e)
-        {
-            (sender as TextBox).Style = Resources["menuTextBoxStylePassive"]
-                as Style;
-        }
-
-        private void MenuButtonMouseEnter(object sender, MouseEventArgs e)
-        {
-            (sender as Button).Background = new LinearGradientBrush(
-                Color.FromRgb(34, 139, 34), Color.FromRgb(0, 162, 80), 38);
-        }
-
-        private void MenuButtonMouseLeave(object sender, MouseEventArgs e)
-        {
-            (sender as Button).Background = new SolidColorBrush(
-                Color.FromRgb(34, 139, 34));
-        }
-        #endregion
-
         private async void UploadCSVFile(object sender, RoutedEventArgs e)
         {
             Button uploadFileBtn = sender as Button;
