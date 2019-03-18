@@ -22,7 +22,7 @@ namespace AeroViewer.ViewModels
         /// </summary>
         public static UploadDelegate UploadDelegate { get; set; }
         public int NumberOfDamagedRecords { get; set; } = 0;
-        public Dictionary<string, int> DistrictCountDictionary { get; set; }
+        public Dictionary<string, List<string>> DistrictCountDictionary { get; set; }
         #endregion
 
         #region Constructors
@@ -47,9 +47,15 @@ namespace AeroViewer.ViewModels
 
 
                 if (DistrictCountDictionary.ContainsKey(tunnelExit.AdmArea))
-                    DistrictCountDictionary[tunnelExit.AdmArea]++;
+                {
+                    if (DistrictCountDictionary[tunnelExit.AdmArea].FindIndex(d => d == tunnelExit.District) == -1)
+                        DistrictCountDictionary[tunnelExit.AdmArea].Add(tunnelExit.District);
+                }
                 else
-                    DistrictCountDictionary[tunnelExit.AdmArea] = 1;
+                {
+                    DistrictCountDictionary[tunnelExit.AdmArea] = new List<string>();
+                    DistrictCountDictionary[tunnelExit.AdmArea].Add(tunnelExit.District);
+                }
             }
         }
 
@@ -57,7 +63,7 @@ namespace AeroViewer.ViewModels
         {
             PageModel.TunnelsData = new ObservableCollection<TunnelExitModel>();
             NumberOfDamagedRecords = 0;
-            DistrictCountDictionary = new Dictionary<string, int>();
+            DistrictCountDictionary = new Dictionary<string, List<string>>();
             PageModel.FullDocumentName = CSVService.CSVServiceObject.Database.FilePath;
             PageModel.ShortDocumentName = PageModel.FullDocumentName.Substring(
                 PageModel.FullDocumentName.LastIndexOf("\\") + 1);

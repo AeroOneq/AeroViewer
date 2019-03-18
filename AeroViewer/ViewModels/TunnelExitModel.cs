@@ -12,11 +12,11 @@ namespace AeroViewer.ViewModels
         public int RowNum { get; set; }
 
         [HeaderName("ID")]
-        public string ID { get; set; } = string.Empty;
+        public long ID { get; set; }
         [HeaderName("Имя")]
         public string Name { get; set; } = string.Empty;
         [HeaderName("GlobalID туннеля")]
-        public string TunnelGlobalID { get; set; } = string.Empty;
+        public long TunnelGlobalID { get; set; }
         [HeaderName("Описание туннеля")]
         public string TunnelDescription { get; set; } = string.Empty;
         [HeaderName("Округ")]
@@ -24,9 +24,9 @@ namespace AeroViewer.ViewModels
         [HeaderName("Район")]
         public string District { get; set; } = string.Empty;
         [HeaderName("Широта")]
-        public string Longitude { get; set; } = string.Empty;
+        public double Longitude { get; set; } 
         [HeaderName("Долгота")]
-        public string Latitude { get; set; } = string.Empty;
+        public double Latitude { get; set; }
 
         [HeaderName("Статус загрузки")]
         [CustomProperty]

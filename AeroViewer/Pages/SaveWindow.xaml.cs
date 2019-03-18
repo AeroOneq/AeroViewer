@@ -27,6 +27,9 @@ namespace AeroViewer
         public SaveWindow() { InitializeComponent(); }
         public SaveWindow(ObservableCollection<TunnelExitModel> tunnelExitModels)
         {
+            if (tunnelExitModels == null || tunnelExitModels.Count == 0)
+                throw new ArgumentException("Нет данных для сохранения");
+
             InitializeComponent();
 
             filePathTextBox.Text = CSVService.CSVServiceObject.Database.FilePath;

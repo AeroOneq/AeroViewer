@@ -15,7 +15,9 @@ namespace AeroViewer.Data
     /// </summary>
     public class Database
     {
-        #region CSV File constants
+        #region CSV File properties
+        private int InitialColCount { get; set; }
+
         private int IDIndex { get; } = 7;
         private int LatitudeIndex { get; } = 6;
         private int LongitudeIndex { get; } = 5;
@@ -41,13 +43,28 @@ namespace AeroViewer.Data
                 List<TunnelExit> tunnelExitsList = new List<TunnelExit>();
                 string[] tunnelExitsStringData = File.ReadAllLines(FilePath, Encoding.UTF8);
 
-                FirstLine = tunnelExitsStringData[0].Split(';');
+                ClearInputData(tunnelExitsStringData);
 
-                for (int i = 0; i < tunnelExitsStringData.Length; i++)
+                FirstLine = tunnelExitsStringData[0].Split(';');
+                InitialColCount = FirstLine.Length;
+
+
+                for (int i = 1; i < tunnelExitsStringData.Length; i++)
                     tunnelExitsList.Add(CreateTunnelExitObject(tunnelExitsStringData[i]));
 
                 return tunnelExitsList;
             });
+        }
+
+        private void ClearInputData(string[] tunnelExitsStringData)
+        {
+            for (int i = 0; i < tunnelExitsStringData.Length; i++)
+            {
+                if (tunnelExitsStringData[i][tunnelExitsStringData[i].Length - 1] == ';')
+                {
+                    tunnelExitsStringData[i] = tunnelExitsStringData[i].Remove(tunnelExitsStringData[i].Length - 1, 1);
+                }
+            }
         }
 
         /// <summary>
@@ -59,16 +76,18 @@ namespace AeroViewer.Data
             try
             {
                 string[] tunnelExitStringData = tunnelExitString.Split(';');
+                CheckAndCorrectInputStringData(tunnelExitStringData);
+
                 tunnelExit = new TunnelExit
                 {
-                    ID = tunnelExitStringData[IDIndex],
+                    ID = long.Parse(tunnelExitStringData[IDIndex]),
                     RowNum = int.Parse(tunnelExitStringData[RowNumIndex]),
                     Name = tunnelExitStringData[NameIndex],
                     Tunnel = Tunnel.Parse(tunnelExitStringData[TunnelIndex]),
                     AdmArea = tunnelExitStringData[AdmAreaIndex],
                     District = tunnelExitStringData[DistrictIndex],
-                    Latitude = tunnelExitStringData[LatitudeIndex],
-                    Longitude = tunnelExitStringData[LongitudeIndex],
+                    Latitude = double.Parse(tunnelExitStringData[LatitudeIndex].Replace('.', ',')),
+                    Longitude = double.Parse(tunnelExitStringData[LongitudeIndex].Replace('.', ',')),
                     IsDamaged = "OK"
                 };
                 return tunnelExit;
@@ -78,12 +97,32 @@ namespace AeroViewer.Data
                 tunnelExit.IsDamaged = "Damaged";
                 return tunnelExit;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 tunnelExit.IsDamaged = "Damaged";
                 return tunnelExit;
             }
         }
+
+        private void CheckAndCorrectInputStringData(string[] tunnelExitStringData)
+        {
+            if (tunnelExitStringData.Length != InitialColCount)
+                throw new ArgumentException();
+
+            for (int i = 0; i < InitialColCount - 1; i++)
+                if (string.IsNullOrEmpty(tunnelExitStringData[i]) ||
+                    string.IsNullOrWhiteSpace(tunnelExitStringData[i]))
+                    throw new ArgumentException();
+
+            for (int i = 0; i < InitialColCount; i++)
+            {
+                while (tunnelExitStringData[i].IndexOf("\"") > -1)
+                    tunnelExitStringData[i] = tunnelExitStringData[i].Remove(
+                        tunnelExitStringData[i].IndexOf("\""), 1);
+            }
+        }
+
+
 
         public async Task RewriteDataAsync(List<TunnelExit> tunnelExits)
         {
@@ -125,11 +164,12 @@ namespace AeroViewer.Data
                 foreach (PropertyInfo propertyInfo in modelProperties)
                     if (propertyInfo.GetCustomAttribute<CustomPropertyAttribute>() == null)
                         dataString.Add(propertyInfo.GetValue(tunnelExits[i - startIndex]).ToString());
+
                 data[i] = dataString.ToArray();
             }
             return data;
         }
-        
+
         public async Task AppendDataAsync(List<TunnelExit> tunnelExits, bool? addHeaderString)
         {
             await Task.Run(() =>

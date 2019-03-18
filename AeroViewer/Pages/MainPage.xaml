@@ -51,7 +51,7 @@
             <Setter Property="GridLinesVisibility" Value="None"/>
             <Setter Property="HeadersVisibility" Value="Column"/>
 
-            <Setter Property="MinRowHeight" Value="50"/>
+            <Setter Property="MinRowHeight" Value="30"/>
             <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
 
             <Setter Property="CanUserDeleteRows" Value="True"/>
@@ -166,9 +166,10 @@
                     </Button>
 
                     <TextBlock Style="{StaticResource propertyNameTextBlockStyle}"
-                               Text="Количество записей"
+                               Text="Кол-во записей:"
                                Margin="20, 55, 0, 0"/>
-                    <TextBox Style="{StaticResource appTextBoxStyle}"
+                    <TextBox x:Name="numberOfVisibleRecordsTextBox"
+                             Style="{StaticResource appTextBoxStyle}"
                              Width="110"
                              Margin="20, 70, 0, 0"
                              TextChanged="UpdateNumberOfVisibleRecords"/>
@@ -213,6 +214,10 @@
                             </Grid>
                         </Button.Content>
                     </Button>
+
+                    <TextBlock Style="{StaticResource propertyNameTextBlockStyle}"
+                               Text="Фильтр: "
+                               Margin="380, 55, 0, 0"/>
                     <TextBox x:Name="filterTextBox"
                              Style="{StaticResource appTextBoxStyle}" 
                              Margin="380, 70, 0, 0"

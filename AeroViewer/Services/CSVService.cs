@@ -32,6 +32,7 @@ namespace AeroViewer.Services
 
         public static void UpdateFilePath(string filePath) =>
             CSVServiceObject.Database.FilePath = filePath;
+
         #region IFileService implementation
         public async Task<List<TunnelExit>> ReadAsync() =>
             await Database.ReadFileDataAsync();

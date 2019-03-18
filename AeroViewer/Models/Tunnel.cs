@@ -2,19 +2,19 @@
 {
     public class Tunnel
     {
-        #region Parse constants
-        private static string GlobalIDPropertyName { get; } = "\"\"global_id\"\":";
-        private static string ValuePropertyName { get; } = "\"\"value\"\":";
+        #region Parse properties
+        private static string GlobalIDPropertyName { get; } = "global_id:";
+        private static string ValuePropertyName { get; } = "value:";
         #endregion
 
         #region Properties
-        public string GlobalID { get; set; } = string.Empty;
+        public long GlobalID { get; set; }
         public string Name { get; set; } = string.Empty;
         #endregion
 
         #region Constructors
         public Tunnel() { }
-        public Tunnel(string globalID, string name)
+        public Tunnel(long globalID, string name)
         {
             GlobalID = globalID;
             Name = name;
@@ -31,11 +31,10 @@
             int valueStartIndex = tunnelData.IndexOf(ValuePropertyName) +
                 ValuePropertyName.Length;
 
-            string globalID = tunnelData.Substring(globalIDStartIndex,
-                tunnelData.IndexOf(",") - globalIDStartIndex);
+            long globalID = long.Parse(tunnelData.Substring(globalIDStartIndex,
+                tunnelData.IndexOf(",") - globalIDStartIndex));
             string value = tunnelData.Substring(valueStartIndex,
                 tunnelData.IndexOf("}") - valueStartIndex);
-            value = value.Substring(3, value.Length - 6);
 
             return new Tunnel
             {

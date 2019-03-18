@@ -16,13 +16,17 @@ namespace AeroViewer.ViewModels
             T xT = x as T;
             T yT = y as T;
 
-            if (MainPageModel.PageModel.DistrictCountDictionary[xT.AdmArea] >
-                MainPageModel.PageModel.DistrictCountDictionary[yT.AdmArea])
+            if (MainPageModel.PageModel.DistrictCountDictionary[xT.AdmArea].Count >
+                MainPageModel.PageModel.DistrictCountDictionary[yT.AdmArea].Count)
+            {
                 return -1 * ((ListSortDirection == ListSortDirection.Descending) ? -1 : 1);
+            }
 
-            if (MainPageModel.PageModel.DistrictCountDictionary[xT.AdmArea] <
-                MainPageModel.PageModel.DistrictCountDictionary[yT.AdmArea])
+            if (MainPageModel.PageModel.DistrictCountDictionary[xT.AdmArea].Count <
+                MainPageModel.PageModel.DistrictCountDictionary[yT.AdmArea].Count)
+            {
                 return 1 * ((ListSortDirection == ListSortDirection.Descending) ? -1 : 1);
+            }
 
             return 0;
         }
