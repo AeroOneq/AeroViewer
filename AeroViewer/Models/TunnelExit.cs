@@ -31,7 +31,7 @@ namespace AeroViewer.Models
                 Name = tunnelExitModel.Name;
                 AdmArea = tunnelExitModel.AdmArea;
                 District = tunnelExitModel.District;
-                Tunnel = new Tunnel(tunnelExitModel.TunnelGlobalID, tunnelExitModel.Name);
+                Tunnel = new Tunnel(tunnelExitModel.TunnelGlobalID, tunnelExitModel.TunnelDescription);
                 Longitude = tunnelExitModel.Latitude;
                 Latitude = tunnelExitModel.Longitude;
             }

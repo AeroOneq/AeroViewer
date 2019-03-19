@@ -101,8 +101,7 @@
                 <TextBlock Text="Выберете файл: "
                            Style="{StaticResource optionNameTextBlock}"/>
                 <TextBox x:Name="filePathTextBox"
-                         Style="{StaticResource appTextBoxStyle}"
-                         Text="C:\Users\Aero\Desktop\Выходы из пешеходных тоннелей.csv"/>
+                         Style="{StaticResource appTextBoxStyle}"/>
                 
                 <Button Style="{StaticResource appDefaultButtonStyle}"
                         Margin="10, 180, 0, 0"
