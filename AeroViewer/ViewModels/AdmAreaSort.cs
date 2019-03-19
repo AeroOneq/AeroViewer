@@ -16,6 +16,10 @@ namespace AeroViewer.ViewModels
             T xT = x as T;
             T yT = y as T;
 
+            if (!(MainPageModel.PageModel.DistrictCountDictionary.ContainsKey(xT.AdmArea) &&
+                MainPageModel.PageModel.DistrictCountDictionary.ContainsKey(yT.AdmArea)))
+                return 0;
+
             if (MainPageModel.PageModel.DistrictCountDictionary[xT.AdmArea].Count >
                 MainPageModel.PageModel.DistrictCountDictionary[yT.AdmArea].Count)
             {

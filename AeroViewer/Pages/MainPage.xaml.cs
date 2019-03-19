@@ -43,8 +43,11 @@ namespace AeroViewer
             {
                 await Dispatcher.BeginInvoke(new Action(() =>
                 {
+                    csvDataGrid.Visibility = Visibility.Visible;
+
                     DataContext = null;
                     DataContext = MainPageModel.PageModel;
+                    MainWindow.Window.Title = MainPageModel.PageModel.FullDocumentName;
 
                     csvDataGrid.ItemsSource = MainPageModel.PageModel.TunnelsData;
                 }));
@@ -84,22 +87,33 @@ namespace AeroViewer
         private void SortDataGrid<T>(object sender, DataGridSortingEventArgs e)
             where T : TunnelExitModel
         {
-            DataGrid dataGrid = sender as DataGrid;
-            DataGridColumn sortedColumn = e.Column;
-
-            if (sortedColumn.Header.ToString() == typeof(T).GetProperty("AdmArea").GetCustomAttribute
-                <HeaderNameAttribute>().HeaderName)
+            try
             {
-                e.Handled = true;
+                DataGrid dataGrid = sender as DataGrid;
+                DataGridColumn sortedColumn = e.Column;
 
-                ListSortDirection sortDirection = (sortedColumn.SortDirection == ListSortDirection.Ascending) ?
-                    ListSortDirection.Descending : ListSortDirection.Ascending;
-                sortedColumn.SortDirection = sortDirection;
+                if (sortedColumn.Header.ToString() == typeof(T).GetProperty("AdmArea").GetCustomAttribute
+                    <HeaderNameAttribute>().HeaderName)
+                {
+                    e.Handled = true;
 
-                ListCollectionView dataList = (ListCollectionView)CollectionViewSource.
-                    GetDefaultView(dataGrid.ItemsSource);
+                    ListSortDirection sortDirection = (sortedColumn.SortDirection == ListSortDirection.Ascending) ?
+                        ListSortDirection.Descending : ListSortDirection.Ascending;
+                    sortedColumn.SortDirection = sortDirection;
 
-                dataList.CustomSort = new AdmAreaSort<T>(sortDirection);
+                    ListCollectionView dataList = (ListCollectionView)CollectionViewSource.
+                        GetDefaultView(dataGrid.ItemsSource);
+
+                    dataList.CustomSort = new AdmAreaSort<T>(sortDirection);
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+                ExceptionHandler.Handler.HandleExceptionWithMessageBox(ex, "Ошибка");
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handler.HandleExceptionWithMessageBox(ex, "Ошибка");
             }
         }
         #endregion
@@ -110,6 +124,7 @@ namespace AeroViewer
             Width = ParentFrame.Width;
             Height = ParentFrame.Height;
 
+            csvDataGrid.Height = Height - 150;
             outterBorder.Width = Width;
             outterBorder.Height = Height;
             topDevisionRectangle.Width = Width - 2 * topDevisionRectangle.Margin.Left;
@@ -130,8 +145,8 @@ namespace AeroViewer
                 else
                     visibleItemsCount = int.Parse(itemsCountTextBox.Text);
 
-                if (visibleItemsCount > MainPageModel.PageModel.TunnelsData.Count)
-                    throw new IndexOutOfRangeException("Неверное число записей");
+                if (visibleItemsCount > MainPageModel.PageModel.TunnelsData.Count || visibleItemsCount < 0)
+                    throw new IndexOutOfRangeException();
 
                 Process.UpdateStatus("Создание списка");
                 ObservableCollection<TunnelExitModel> visibleItems =
@@ -187,28 +202,39 @@ namespace AeroViewer
         /// </summary>
         private async void DeleteRecordsAsync(object sender, EventArgs e)
         {
-            await Task.Run(async () =>
+            try
             {
-                List<TunnelExitModel> selectedItems = GetSelectedItems().ToList();
-
-                if (selectedItems.Count == 0)
+                await Task.Run(async () =>
                 {
-                    Dispatcher.Invoke(() => AeroViewerMessageBox.ShowMessageBox("Ошибка удаления", "Вы выбрали 0 записей",
-                        MessageBoxButton.OK));
-                    return;
-                }
+                    List<TunnelExitModel> selectedItems = GetSelectedItems().ToList();
 
-                foreach (TunnelExitModel tunnelExit in selectedItems)
+                    if (selectedItems.Count == 0)
+                    {
+                        Dispatcher.Invoke(() => AeroViewerMessageBox.ShowMessageBox("Ошибка удаления", "Вы выбрали 0 записей",
+                            MessageBoxButton.OK));
+                        return;
+                    }
+
+                    foreach (TunnelExitModel tunnelExit in selectedItems)
+                        await Dispatcher.BeginInvoke(new Action(() =>
+                            MainPageModel.PageModel.TunnelsData.Remove(tunnelExit)));
+
                     await Dispatcher.BeginInvoke(new Action(() =>
-                        MainPageModel.PageModel.TunnelsData.Remove(tunnelExit)));
+                    {
+                        csvDataGrid.ItemsSource = MainPageModel.PageModel.TunnelsData;
 
-                await Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    csvDataGrid.ItemsSource = MainPageModel.PageModel.TunnelsData;
-
-                    numberOfVisibleRecordsTextBox.Text = string.Empty;
-                }));
-            });
+                        numberOfVisibleRecordsTextBox.Text = string.Empty;
+                    }));
+                });
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                ExceptionHandler.Handler.HandleExceptionWithMessageBox(ex, "Ошибка");
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handler.HandleExceptionWithMessageBox(ex, "Ошибка");
+            }
         }
 
         private IEnumerable<TunnelExitModel> GetSelectedItems() =>
@@ -216,20 +242,31 @@ namespace AeroViewer
 
         public void AddNewRecord(object sender, EventArgs e)
         {
-            csvDataGrid.ItemsSource = MainPageModel.PageModel.TunnelsData;
-            filterTextBox.Text = string.Empty;
-            numberOfVisibleRecordsTextBox.Text = string.Empty;
-
-            TunnelExitModel tunnelExitModel = new TunnelExitModel();
-            if (MainPageModel.PageModel.TunnelsData.Count != 0)
+            try
             {
-                tunnelExitModel.RowNum = MainPageModel.PageModel.TunnelsData[
-                    MainPageModel.PageModel.TunnelsData.Count - 1].RowNum + 1;
-            }
-            tunnelExitModel.IsDamaged = "OK";
+                csvDataGrid.ItemsSource = MainPageModel.PageModel.TunnelsData;
+                filterTextBox.Text = string.Empty;
+                numberOfVisibleRecordsTextBox.Text = string.Empty;
 
-            MainPageModel.PageModel.TunnelsData.Add(tunnelExitModel);
-            csvDataGrid.ScrollIntoView(tunnelExitModel);
+                TunnelExitModel tunnelExitModel = new TunnelExitModel();
+                if (MainPageModel.PageModel.TunnelsData.Count != 0)
+                {
+                    tunnelExitModel.RowNum = MainPageModel.PageModel.TunnelsData[
+                        MainPageModel.PageModel.TunnelsData.Count - 1].RowNum + 1;
+                }
+                tunnelExitModel.IsDamaged = "OK";
+
+                MainPageModel.PageModel.TunnelsData.Add(tunnelExitModel);
+                csvDataGrid.ScrollIntoView(tunnelExitModel);
+            }
+            catch (NullReferenceException ex)
+            {
+                ExceptionHandler.Handler.HandleExceptionWithMessageBox(ex, "Ошибка");
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handler.HandleExceptionWithMessageBox(ex, "Ошибка");
+            }
         }
 
         #region Filter methods

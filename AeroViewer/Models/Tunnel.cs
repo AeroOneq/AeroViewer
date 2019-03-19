@@ -44,7 +44,7 @@
         }
 
         /// <summary>
-        /// Returns the data representation in a format which is defined in an initial CSV file
+        /// Returns the data representation in a format which is defined in the initial CSV file
         /// </summary>
         public override string ToString() =>
             "\"{ \"\"global_id\"\": " + GlobalID + ", \"\"value\"\": \"\"" + Name + "\"\" }\"";

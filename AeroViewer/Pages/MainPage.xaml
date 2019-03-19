@@ -54,11 +54,14 @@
             <Setter Property="MinRowHeight" Value="30"/>
             <Setter Property="VerticalScrollBarVisibility" Value="Visible"/>
 
-            <Setter Property="CanUserDeleteRows" Value="True"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
             <Setter Property="CanUserResizeColumns" Value="False"/>
             <Setter Property="CanUserSortColumns" Value="True"/>
             <Setter Property="CanUserReorderColumns" Value="True"/>
             <Setter Property="CanUserResizeColumns" Value="True"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+
+            <Setter Property="Visibility" Value="Collapsed"/>
         </Style>
         <Style x:Key="dataGridHeaderStyle" TargetType="DataGridColumnHeader">
             <Setter Property="Background" Value="{StaticResource darkMainThemeBrush}"/>
@@ -72,6 +75,11 @@
             <Setter Property="IsEnabled" Value="True"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="ToolTip" Value="Нажмите для сортировки"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style x:Key="dataGridCellStyle" TargetType="DataGridCell">
             <Setter Property="FontFamily" Value="Arial, Verdana"/>

@@ -8,5 +8,6 @@ namespace AeroViewer.Attributes
     /// </summary>
     public class CustomPropertyAttribute : Attribute
     {
+        public CustomPropertyAttribute() { }
     }
 }

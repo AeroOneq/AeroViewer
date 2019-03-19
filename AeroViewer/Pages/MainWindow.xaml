@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AeroViewer"
         mc:Ignorable="d"
-        Title="MainWindow"
         MinWidth="900"
         MinHeight="450"
         Width="900"
         Height="450"
+        Title="AeroViewer"
         Background="{StaticResource hintBrushText}"
         SizeChanged="RepositionElements">
     <Window.Resources>

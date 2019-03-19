@@ -17,6 +17,7 @@ namespace AeroViewer.Data
     {
         #region CSV File properties
         private int InitialColCount { get; set; }
+        private char Devider { get; } = ';';
 
         private int IDIndex { get; } = 7;
         private int LatitudeIndex { get; } = 6;
@@ -41,24 +42,38 @@ namespace AeroViewer.Data
             return await Task.Run(() =>
             {
                 List<TunnelExit> tunnelExitsList = new List<TunnelExit>();
-                string[] tunnelExitsStringData = File.ReadAllLines(FilePath, Encoding.UTF8);
+                List<string> tunnelExitsStringData = ReadFileData(FilePath);
 
                 ClearInputData(tunnelExitsStringData);
 
-                FirstLine = tunnelExitsStringData[0].Split(';');
+                FirstLine = tunnelExitsStringData[0].Split(Devider);
                 InitialColCount = FirstLine.Length;
 
-
-                for (int i = 1; i < tunnelExitsStringData.Length; i++)
+                for (int i = 1; i < tunnelExitsStringData.Count; i++)
                     tunnelExitsList.Add(CreateTunnelExitObject(tunnelExitsStringData[i]));
 
                 return tunnelExitsList;
             });
         }
 
-        private void ClearInputData(string[] tunnelExitsStringData)
+        private List<string> ReadFileData(string filePath)
         {
-            for (int i = 0; i < tunnelExitsStringData.Length; i++)
+            List<string> stringData = new List<string>();
+
+            using (FileStream fs = new FileStream(filePath, FileMode.Open))
+            using (StreamReader sr = new StreamReader(fs, Encoding.UTF8))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                    stringData.Add(line);
+            }
+
+            return stringData;
+        }
+
+        private void ClearInputData(List<string> tunnelExitsStringData)
+        {
+            for (int i = 0; i < tunnelExitsStringData.Count; i++)
             {
                 if (tunnelExitsStringData[i][tunnelExitsStringData[i].Length - 1] == ';')
                 {
@@ -75,7 +90,7 @@ namespace AeroViewer.Data
             TunnelExit tunnelExit = new TunnelExit();
             try
             {
-                string[] tunnelExitStringData = tunnelExitString.Split(';');
+                string[] tunnelExitStringData = tunnelExitString.Split(Devider);
                 CheckAndCorrectInputStringData(tunnelExitStringData);
 
                 tunnelExit = new TunnelExit
@@ -97,7 +112,7 @@ namespace AeroViewer.Data
                 tunnelExit.IsDamaged = "Damaged";
                 return tunnelExit;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 tunnelExit.IsDamaged = "Damaged";
                 return tunnelExit;
@@ -108,11 +123,6 @@ namespace AeroViewer.Data
         {
             if (tunnelExitStringData.Length != InitialColCount)
                 throw new ArgumentException();
-
-            for (int i = 0; i < InitialColCount - 1; i++)
-                if (string.IsNullOrEmpty(tunnelExitStringData[i]) ||
-                    string.IsNullOrWhiteSpace(tunnelExitStringData[i]))
-                    throw new ArgumentException();
 
             for (int i = 0; i < InitialColCount; i++)
             {
@@ -129,10 +139,20 @@ namespace AeroViewer.Data
             await Task.Run(() =>
             {
                 string[][] data = GetStringData(tunnelExits, true);
-
                 string[] csvData = data.Select(x => string.Join(";", x)).ToArray();
-                File.WriteAllLines(FilePath, csvData, Encoding.UTF8);
+
+                WriteData(csvData);
             });
+        }
+
+        private void WriteData(string[] data)
+        {
+            using (FileStream fs = new FileStream(FilePath, FileMode.Create))
+            using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8))
+            {
+                foreach (string dataString in data)
+                    sw.WriteLine(dataString);
+            }
         }
 
         /// <summary>
@@ -163,11 +183,24 @@ namespace AeroViewer.Data
                 List<string> dataString = new List<string>();
                 foreach (PropertyInfo propertyInfo in modelProperties)
                     if (propertyInfo.GetCustomAttribute<CustomPropertyAttribute>() == null)
-                        dataString.Add(propertyInfo.GetValue(tunnelExits[i - startIndex]).ToString());
+                    {
+                        string propertyStringValue = DeleteDeviders(propertyInfo.GetValue(
+                            tunnelExits[i - startIndex]).ToString());
+
+                        dataString.Add(propertyStringValue);
+                    }
 
                 data[i] = dataString.ToArray();
             }
             return data;
+        }
+
+        private string DeleteDeviders(string propertyStringValue)
+        {
+            while (propertyStringValue.IndexOf(Devider) > -1)
+                propertyStringValue = propertyStringValue.Remove(propertyStringValue.IndexOf(Devider), 1);
+
+            return propertyStringValue;
         }
 
         public async Task AppendDataAsync(List<TunnelExit> tunnelExits, bool? addHeaderString)
@@ -175,10 +208,20 @@ namespace AeroViewer.Data
             await Task.Run(() =>
             {
                 string[][] data = GetStringData(tunnelExits, addHeaderString);
-
                 string[] csvData = data.Select(x => string.Join(";", x)).ToArray();
-                File.AppendAllLines(FilePath, csvData, Encoding.UTF8);
+
+                AppendData(csvData);
             });
+        }
+
+        private void AppendData(string[] data)
+        {
+            using (FileStream fs = new FileStream(FilePath, FileMode.Append))
+            using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8))
+            {
+                foreach (string dataString in data)
+                    sw.WriteLine(dataString);
+            }
         }
     }
 }

@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>appLogoIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -158,7 +161,9 @@
   <ItemGroup>
     <Resource Include="Resources\processDoneIcon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="appLogoIcon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\addRecordIcon.png" />
   </ItemGroup>
