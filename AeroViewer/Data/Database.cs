@@ -34,7 +34,17 @@ namespace AeroViewer.Data
         /// <summary>
         /// First (Head) line of a file, where column names are
         /// </summary>
-        public string[] FirstLine { get; private set; } = new string[1];
+        public string[] FirstLine { get; private set; } = new string[8]
+        {
+            "ROWNUM",
+            "Name",
+            "Tunnel",
+            "AdmArea",
+            "District",
+            "Longitude",
+            "Latitude",
+            "Id"
+        };
         #endregion
 
         public async Task<List<TunnelExit>> ReadFileDataAsync()
@@ -75,7 +85,7 @@ namespace AeroViewer.Data
         {
             for (int i = 0; i < tunnelExitsStringData.Count; i++)
             {
-                if (tunnelExitsStringData[i][tunnelExitsStringData[i].Length - 1] == ';')
+                if (tunnelExitsStringData[i].Length > 0 && tunnelExitsStringData[i][tunnelExitsStringData[i].Length - 1] == ';')
                 {
                     tunnelExitsStringData[i] = tunnelExitsStringData[i].Remove(tunnelExitsStringData[i].Length - 1, 1);
                 }
@@ -131,8 +141,6 @@ namespace AeroViewer.Data
                         tunnelExitStringData[i].IndexOf("\""), 1);
             }
         }
-
-
 
         public async Task RewriteDataAsync(List<TunnelExit> tunnelExits)
         {

@@ -244,6 +244,7 @@ namespace AeroViewer
         {
             try
             {
+                csvDataGrid.Visibility = Visibility.Visible;
                 csvDataGrid.ItemsSource = MainPageModel.PageModel.TunnelsData;
                 filterTextBox.Text = string.Empty;
                 numberOfVisibleRecordsTextBox.Text = string.Empty;
