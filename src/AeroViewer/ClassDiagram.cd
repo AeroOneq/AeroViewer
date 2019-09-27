@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AeroViewer.Attributes.CustomPropertyAttribute">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\CustomProperty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AeroViewer.Attributes.HeaderNameAttribute">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Attributes\HeaderNameAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AeroViewer.Data.Database">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAQAAAAgEQAAAAEEAAEAgAAAAAgAApCAEDCAEAgAAg=</HashCode>
+      <FileName>Data\Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AeroViewer.Models.Tunnel">
+    <Position X="7.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEgAAAAAAAAAAAEAAAAACQAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Models\Tunnel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AeroViewer.Models.TunnelExit">
+    <Position X="5.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAEABgAAgAAAIAAQAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\TunnelExit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AeroViewer.AeroViewerMessageBox" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAEAAAAAQAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\AeroViewerMessageBox.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AeroViewer.App">
+    <Position X="9.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AeroViewer.LeftMenuPage" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAABgAAAAAAAAgAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\LeftMenuPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AeroViewer.Loader" BaseTypeListCollapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Loader.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AeroViewer.MainPage" BaseTypeListCollapsed="true">
+    <Position X="13" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAEAAQAABAEAgAAAAAYwAAIABQAAAAAAIA=</HashCode>
+      <FileName>Pages\MainPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AeroViewer.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Pages\MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AeroViewer.SaveWindow" BaseTypeListCollapsed="true">
+    <Position X="11" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAIAAAAACAAAAAAAAAAAAAAAAAAQAAAABAAAEAAAAAA=</HashCode>
+      <FileName>Pages\SaveWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AeroViewer.ExceptionHandler">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAIAAAACCAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>ExceptionHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AeroViewer.Position">
+    <Position X="14.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAQAAQAAAIQAAAAAEAIAABAIAAAIAIAQAAAAAAgA=</HashCode>
+      <FileName>Position.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AeroViewer.Process">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAEAgAAAAAAAAAAAAACAAAAAAAIgIAgAAAA=</HashCode>
+      <FileName>Process.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AeroViewer.Services.CSVService" BaseTypeListCollapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgAQAAAEAgBAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Services\CSVService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AeroViewer.ViewModels.AdmAreaSort&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>ViewModels\AdmAreaSort.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AeroViewer.ViewModels.MainPageModel">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAACBAAAIAAEAAAAAAAAAIAAMgAA=</HashCode>
+      <FileName>ViewModels\MainPageModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AeroViewer.ViewModels.TunnelExitModel">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAMABkAAgAAAIAAQAAAAAABAAAAAAgAAAAAA=</HashCode>
+      <FileName>ViewModels\TunnelExitModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="AeroViewer.Interfaces.IFileService&lt;T&gt;">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IFileService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Delegate Name="AeroViewer.ViewModels.UploadDelegate">
+    <Position X="5.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\MainPageModel.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
